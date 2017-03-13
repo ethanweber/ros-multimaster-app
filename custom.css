@@ -1,6 +1,7 @@
 .form-group {
   position: relative;
   left: 0px;
+  padding: 5px;
   display: inline-block;
 }
 
