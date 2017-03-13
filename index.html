@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+  <script type="text/javascript" src="http://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+
+  <link href="custom.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+  <h2>Rostopic Mapper</h2>
+  <hr/>
+  <button id="load_data" class="btn btn-default">Upload File</button>
+  <hr/>
+  <form>
+    <div id="computer_fields"></div>
+    <button id="new_computer_field" class="btn btn-default">Add Computer</button><br>
+    <button id="submit_computer_fields" class="btn btn-default">Submit</button>
+  </form>
+  <hr/>
+  <form>
+    <div id="rostopic_fields"></div>
+    <button id="new_rostopic_field" class="btn btn-default">Add Rostopic Route</button><br>
+    <button id="submit_rostopic_fields" class="btn btn-default">Submit</button>
+  </form>
+  <hr/>
+
+  <script type="text/javascript" type="text/javascript">
+
+// --------------------------------------------------------------------------------------
+    var computer_num = 0;
+    var computer_list = [];
+    document.getElementById("new_computer_field").addEventListener("click", function(event){
+      event.preventDefault();
+      new_computer_field();
+    });
+    function new_computer_field() {
+      computer_num += 1;
+      computer_list.push(new computer());
+      console.log(computer_list.length);
+      var div = document.getElementById('computer_fields');
+      div.innerHTML = div.innerHTML +
+        "<br>\
+        <div class=\"form-group\">\
+          <label for=\"email\">Computer " + computer_num + ":</label>\
+          <input type=\"email\" class=\"form-control\" id=\"computer_" + computer_num + "\" placeholder=\"Enter name\">\
+        </div>\
+        <div class=\"form-group\">\
+          <label for=\"pwd\">IP Address " + computer_num + ":</label>\
+          <input type=\"text\" class=\"form-control\" id=\"ip_" + computer_num + "\" placeholder=\"Enter IP\">\
+        </div>"
+    }
+    document.getElementById("submit_computer_fields").addEventListener("click", function(event){
+      event.preventDefault();
+      update_fields();
+    });
+    function update_fields() {
+      for (var i = 0; i < computer_list.length; i++) {
+        var comp_id = 'computer_' + (i+1);
+        var name = document.getElementById(comp_id).value;
+        var ip_id = 'ip_' + (i+1);
+        var ip = document.getElementById(ip_id).value;
+        computer_list[i].initialize(name, ip);
+      }
+      console.log(computer_list);
+    }
+    function computer() {
+      var obj = {};
+      obj.name = "";
+      obj.ros;
+      obj.initialize = function(name, ip_address) {
+        obj.name = name
+        obj.ros = new ROSLIB.Ros({
+          url : 'ws://' + ip_address + ':9090'
+        });
+      }
+      return obj;
+    }
+// ------------------------------------------------------------------------
+
+    var rostopic_num = 0;
+    var rostopic_list = [];
+    document.getElementById("new_rostopic_field").addEventListener("click", function(event){
+      event.preventDefault();
+      new_rostopic_field();
+    });
+    function new_rostopic_field() {
+      rostopic_num += 1;
+      console.log(rostopic_num);
+      var div = document.getElementById('rostopic_fields');
+      div.innerHTML = div.innerHTML +
+        "<br>\
+        <div class=\"form-group\">\
+          <label for=\"sel1\">Computer</label>\
+          <select class=\"form-control\" id=\"subscribe_computers_" + rostopic_num + "\">\
+          </select>\
+        </div>\
+        <div class=\"form-group\">\
+          <label for=\"pwd\">Subscribe Topic</label>\
+          <input type=\"text\" class=\"form-control\" id=\"ip_" + rostopic_num + "\" placeholder=\"Enter topic\">\
+        </div>\
+        <div class=\"form-group\">\
+          <label for=\"sel1\">Destination</label>\
+          <select class=\"form-control\" id=\"publish_computers_" + rostopic_num + "\">\
+          </select>\
+        </div>\
+        <div class=\"form-group\">\
+          <label for=\"pwd\">Publish Topic</label>\
+          <input type=\"text\" class=\"form-control\" id=\"ip_" + rostopic_num + "\" placeholder=\"Enter topic\">\
+        </div>";
+
+      var sub_comp_div = document.getElementById('subscribe_computers_' + rostopic_num);
+      var pub_comp_div = document.getElementById('publish_computers_' + rostopic_num);
+      for (var i = 0; i < computer_list.length; i++) {
+        var name = computer_list[i].name;
+        sub_comp_div.innerHTML = sub_comp_div.innerHTML + "<option>" + name + "</option>";
+        pub_comp_div.innerHTML = pub_comp_div.innerHTML + "<option>" + name + "</option>";
+      }
+    }
+  </script>
+</div>
+
+</body>
+</html>
