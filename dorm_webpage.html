@@ -18,7 +18,7 @@
   <h2>Rostopic Mapper</h2>
   <hr/>
   <h4 id="local_ip"></h6>
-  <hr/>
+  <!-- <hr/>
   <button id="load_data" class="btn btn-default">Upload File</button>
   <hr/>
   <form>
@@ -31,9 +31,12 @@
     <div id="rostopic_fields"></div>
     <button id="new_rostopic_field" class="btn btn-default">Add Rostopic Route</button><br>
     <button id="refresh_rostopic_fields" class="btn btn-default">Refresh</button>
-  </form>
+  </form> -->
   <hr/>
-  <button id="start_routing" class="btn btn-default">Start Routing</button>
+  <!-- <button id="start_routing" class="btn btn-default">Start Routing</button> -->
+  <button id="green_on" class="btn btn-default">Green Lights On</button>
+  <hr/>
+  <button id="green_off" class="btn btn-default">Green Lights Off</button>
 
   <script type="text/javascript" type="text/javascript">
 
@@ -45,6 +48,38 @@
     }
 
     get_ip_address();
+
+// ---------------------------------------------------------
+    document.getElementById("green_on").addEventListener("click", function(event){
+      event.preventDefault();
+      var ros = new ROSLIB.Ros({
+        url : 'ws://18.111.110.236:9090'
+      });
+      var cmd_topic = new ROSLIB.Topic({
+        ros : ros,
+        name : '/chatter',
+        messageType : 'std_msgs/String'
+      });
+      var twist = new ROSLIB.Message({
+        data : "green_on"
+      });
+      cmd_topic.publish(twist);
+    });
+    document.getElementById("green_off").addEventListener("click", function(event){
+      event.preventDefault();
+      var ros = new ROSLIB.Ros({
+        url : 'ws://18.111.110.236:9090'
+      });
+      var cmd_topic = new ROSLIB.Topic({
+        ros : ros,
+        name : '/chatter',
+        messageType : 'std_msgs/String'
+      });
+      var twist = new ROSLIB.Message({
+        data : "green_off"
+      });
+      cmd_topic.publish(twist);
+    });
 
 // --------------------------------------------------------------------------------------
     var computer_num = 0;
