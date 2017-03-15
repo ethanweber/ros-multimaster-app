@@ -99,6 +99,20 @@
     var rostopic_num = 0;
     var rostopic_list = [];
 
+    var n = 0;
+
+    var myVar = setInterval(myTimer, 500);
+
+    function myTimer() {
+      var da = new Date();
+      console.log(da.getTime());
+      if (da.getTime() > n + 500) {
+        document.body.style.backgroundColor = "blue";
+      }
+      // document.getElementById("demo").innerHTML = d.toLocaleTimeString();
+    }
+
+
     document.getElementById("new_rostopic_field").addEventListener("click", function(event){
       event.preventDefault();
       new_rostopic_field();
@@ -124,6 +138,10 @@
         <div class=\"form-group\">\
           <label for=\"pwd\">Publish Topic</label>\
           <input type=\"text\" class=\"form-control\" id=\"pub_topic_" + rostopic_num + "\" placeholder=\"Enter topic\">\
+        </div>\
+        <div class=\"form-group\">\
+          <label for=\"pwd\">Message Type</label>\
+          <input type=\"text\" class=\"form-control\" id=\"msg_type_" + rostopic_num + "\" placeholder=\"Enter type\">\
         </div>");
     }
 
@@ -151,7 +169,7 @@
       obj.comp_name = "";
       obj.sub_topic;
       obj.pub_topic;
-      obj.initialize = function(sub_comp, sub_topic, pub_comp, pub_topic) {
+      obj.initialize = function(sub_comp, sub_topic, pub_comp, pub_topic, msg_type) {
         // obj.name = name;
         console.log(sub_comp);
         console.log(sub_topic);
@@ -173,7 +191,7 @@
           }
         }
 
-        message_type = 'std_msgs/String'
+        message_type = msg_type;
 
         obj.sub_topic = new ROSLIB.Topic({
           ros : sub_computer,
@@ -190,6 +208,9 @@
         obj.sub_topic.subscribe(function(message) {
           console.log('Received message on ' + sub_topic.name + ': ' + sub_topic.data);
           // listener.unsubscribe();
+          document.body.style.backgroundColor = "green";
+          var d = new Date();
+          n = d.getTime();
           obj.pub_topic.publish(message);
         });
 
@@ -203,7 +224,8 @@
         var sub_topic = document.getElementById('sub_topic_' + (i+1) ).value;
         var pub_comp = document.getElementById('publish_computers_' + (i+1) ).value;
         var pub_topic = document.getElementById('pub_topic_' + (i+1) ).value;
-        rostopic_list[i].initialize(sub_comp, sub_topic, pub_comp, pub_topic);
+        var msg_type = document.getElementById('msg_type_' + (i+1) ).value;
+        rostopic_list[i].initialize(sub_comp, sub_topic, pub_comp, pub_topic, msg_type);
       }
     }
     document.getElementById("start_routing").addEventListener("click", function(event){
