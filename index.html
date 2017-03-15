@@ -106,9 +106,9 @@
     function myTimer() {
       var da = new Date();
       console.log(da.getTime());
-      if (da.getTime() > n + 500) {
-        document.body.style.backgroundColor = "blue";
-      }
+      // if (da.getTime() > n + 500) {
+      //   document.body.style.backgroundColor = "blue";
+      // }
       // document.getElementById("demo").innerHTML = d.toLocaleTimeString();
     }
 
@@ -208,7 +208,7 @@
         obj.sub_topic.subscribe(function(message) {
           console.log('Received message on ' + sub_topic.name + ': ' + sub_topic.data);
           // listener.unsubscribe();
-          document.body.style.backgroundColor = "green";
+          // document.body.style.backgroundColor = "green";
           var d = new Date();
           n = d.getTime();
           obj.pub_topic.publish(message);
