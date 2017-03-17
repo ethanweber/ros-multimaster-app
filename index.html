@@ -90,9 +90,11 @@
     function computer() {
       var obj = {};
       obj.name = "";
+      obj.ip = "";
       obj.ros;
       obj.initialize = function(name, ip_address) {
-        obj.name = name
+        obj.name = name;
+        obj.ip = ip_address;
         obj.ros = new ROSLIB.Ros({
           url : 'ws://' + ip_address + ':9090'
         });
@@ -179,7 +181,7 @@
     function rostopic_route() {
       var obj = {};
       obj.num;
-      obj.comp_name = "";
+      obj.storage;// = [6];
       obj.sub_topic;
       obj.pub_topic;
       obj.last_update = new Date().getTime();
@@ -192,6 +194,8 @@
         console.log(pub_topic);
 
         obj.num = num;
+
+        obj.storage = [num, sub_comp, sub_topic, pub_comp, pub_topic, msg_type];
 
         var sub_computer;
         var pub_computer;
@@ -229,10 +233,6 @@
           console.log(last_update);
           obj.pub_topic.publish(message);
         });
-
-        var myJSON = JSON.stringify(obj);
-        console.log(myJSON);
-
       }
       return obj;
     }
@@ -255,7 +255,44 @@
 // --------------------------------------------------------------------------------
 // SAVE FILE
 // ---------------------------------------------------------
+    document.getElementById("save_data").addEventListener("click", function(event){
+      event.preventDefault();
+      save_to_file();
+    });
 
+    function save_to_file() {
+
+      // var computer_string = "{ \"computer_list\" : ";
+      // for (var i = 0; i < computer_list.length; i++) {
+      //   computer_string += "{";
+      //   computer_string += "\"name\": " + JSON.stringify(computer_list[i].name) + ",";
+      //   computer_string += "\"ip\": " +JSON.stringify(computer_list[i].ip);
+      //   computer_string += "}";
+      //   if (i < computer_list.length - 1) {
+      //     computer_string += ",";
+      //   }
+      // }
+      // computer_string += "}";
+      // console.log(computer_string);
+
+      var rostopic_string = "{ \"rostopic_list\" : ";
+      for (var i = 0; i < rostopic_list.length; i++) {
+        rostopic_string += "{";
+        rostopic_string += "\"from\": " + JSON.stringify(rostopic_list[i].storage[1]) + ",";
+        rostopic_string += "\"sub\": " + JSON.stringify(rostopic_list[i].storage[2]) + ",";
+        rostopic_string += "\"to\": " +JSON.stringify(rostopic_list[i].storage[3]) + ",";
+        rostopic_string += "\"pub\": " + JSON.stringify(rostopic_list[i].storage[4]) + ",";
+        rostopic_string += "\"msg_type\": " + JSON.stringify(rostopic_list[i].storage[5]);
+        rostopic_string += "}";
+        if (i < rostopic_list.length - 1) {
+          rostopic_string += ",";
+        }
+      }
+      rostopic_string += "}";
+      console.log(rostopic_string);
+
+
+    }
 
 
 
