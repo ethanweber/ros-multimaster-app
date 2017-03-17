@@ -10,7 +10,9 @@
   <script type="text/javascript" src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
   <script type="text/javascript" src="http://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
 
-  <link href="custom.css" rel="stylesheet">
+  <!-- yaml library for saving and loading files -->
+
+  <link rel="stylesheet" type="text/css" href="/css/custom.css">
 </head>
 <body>
 
@@ -20,6 +22,7 @@
   <h4 id="local_ip"></h6>
   <hr/>
   <button id="load_data" class="btn btn-default">Upload File</button>
+  <button id="save_data" class="btn btn-default">Save File</button>
   <hr/>
   <form>
     <div id="computer_fields"></div>
@@ -47,6 +50,8 @@
     get_ip_address();
 
 // --------------------------------------------------------------------------------------
+// COMPUTER FIELDS
+// ----------------------------------------------------------------------
     var computer_num = 0;
     var computer_list = [];
     document.getElementById("new_computer_field").addEventListener("click", function(event){
@@ -94,22 +99,26 @@
       }
       return obj;
     }
-// ------------------------------------------------------------------------
+// ------------------------------------------------------------------
+// ROSTOPIC MAPPING LISTS
+// ------------------------------------------------------------------
 
     var rostopic_num = 0;
     var rostopic_list = [];
 
     var n = 0;
 
-    var myVar = setInterval(myTimer, 500);
+    var my_status = setInterval(rostopic_status_checker, 2000);
 
-    function myTimer() {
-      var da = new Date();
-      console.log(da.getTime());
-      // if (da.getTime() > n + 500) {
-      //   document.body.style.backgroundColor = "blue";
-      // }
-      // document.getElementById("demo").innerHTML = d.toLocaleTimeString();
+    function rostopic_status_checker() {
+      var current_time = new Date().getTime();
+      // console.log(current_time);
+      // console.log(rostopic_list[0].last_update);
+      for (var i = 0; i < rostopic_list.length; i++) {
+        if ( (current_time - rostopic_list[0].last_update) > 2000 ) {
+          document.getElementById('topic_status_' + (i+1) ).style.color = "red";
+        }
+      }
     }
 
 
@@ -142,6 +151,9 @@
         <div class=\"form-group\">\
           <label for=\"pwd\">Message Type</label>\
           <input type=\"text\" class=\"form-control\" id=\"msg_type_" + rostopic_num + "\" placeholder=\"Enter type\">\
+        </div>\
+        <div class=\"form-group\">\
+          <label style=\"color:red\" id=\"topic_status_" + rostopic_num + "\">STATUS</label>\
         </div>");
     }
 
@@ -166,15 +178,20 @@
     }
     function rostopic_route() {
       var obj = {};
+      obj.num;
       obj.comp_name = "";
       obj.sub_topic;
       obj.pub_topic;
-      obj.initialize = function(sub_comp, sub_topic, pub_comp, pub_topic, msg_type) {
+      obj.last_update = new Date().getTime();
+      obj.initialize = function(num, sub_comp, sub_topic, pub_comp, pub_topic, msg_type) {
         // obj.name = name;
+        console.log(num);
         console.log(sub_comp);
         console.log(sub_topic);
         console.log(pub_comp);
         console.log(pub_topic);
+
+        obj.num = num;
 
         var sub_computer;
         var pub_computer;
@@ -191,28 +208,30 @@
           }
         }
 
-        message_type = msg_type;
-
         obj.sub_topic = new ROSLIB.Topic({
           ros : sub_computer,
           name : sub_topic,
-          messageType : message_type
+          messageType : msg_type
         });
 
         obj.pub_topic = new ROSLIB.Topic({
           ros : pub_computer,
           name : pub_topic,
-          messageType : message_type
+          messageType : msg_type
         });
 
         obj.sub_topic.subscribe(function(message) {
           console.log('Received message on ' + sub_topic.name + ': ' + sub_topic.data);
           // listener.unsubscribe();
           // document.body.style.backgroundColor = "green";
-          var d = new Date();
-          n = d.getTime();
+          last_update = new Date().getTime();
+          document.getElementById('topic_status_' + num ).style.color = "green";
+          console.log(last_update);
           obj.pub_topic.publish(message);
         });
+
+        var myJSON = JSON.stringify(obj);
+        console.log(myJSON);
 
       }
       return obj;
@@ -225,13 +244,22 @@
         var pub_comp = document.getElementById('publish_computers_' + (i+1) ).value;
         var pub_topic = document.getElementById('pub_topic_' + (i+1) ).value;
         var msg_type = document.getElementById('msg_type_' + (i+1) ).value;
-        rostopic_list[i].initialize(sub_comp, sub_topic, pub_comp, pub_topic, msg_type);
+        rostopic_list[i].initialize(i+1, sub_comp, sub_topic, pub_comp, pub_topic, msg_type);
       }
     }
     document.getElementById("start_routing").addEventListener("click", function(event){
       event.preventDefault();
       update_rostopic_routes();
+      // yamlString = YAML.stringify(nativeObject[, 2[, 5] ]);
     });
+// --------------------------------------------------------------------------------
+// SAVE FILE
+// ---------------------------------------------------------
+
+
+
+
+
   </script>
 </div>
 
