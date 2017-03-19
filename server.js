@@ -14,11 +14,22 @@ app.get('/save', function(req, res){
  var json_string = req.query.json;
  var fs = require('fs');
    fs.writeFile("config.txt", json_string, function(err) {
-       if(err) {
-           return console.log(err);
-       }
+       if(err) return console.log(err);
    });
- res.send("File saved.");
+ console.log("File saved.");
+});
+
+
+app.get('/load', function(req, res){
+
+  var fs = require('fs');
+    fs.readFile("config.json", 'utf8', function(err, data) {
+      if(err) return console.log(err);
+      var content = JSON.parse(data);
+      console.log(content);
+      res.send(content);
+   });
+  console.log("File loaded.");
 });
 
 console.log("Server started on http://localhost:8080");

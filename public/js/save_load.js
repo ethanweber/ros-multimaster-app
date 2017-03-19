@@ -17,6 +17,18 @@
       });
     });
 
+    document.getElementById("load_data").addEventListener("click", function(event){
+      event.preventDefault();
+
+      // var parameters = { json: json_string };
+      $.get( '/load', function(data) {
+        console.log(data);
+        // var object = JSON.parse(data);
+        // console.log(object);
+      });
+
+    });
+
     function generate_json() {
 
       var computer_string = "{ \"computer_list\" : [";
