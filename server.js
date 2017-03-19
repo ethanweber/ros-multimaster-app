@@ -9,5 +9,18 @@ app.use(express.static('public'))
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/index.html'));
 });
+
+app.get('/save', function(req, res){
+ var json_string = req.query.json;
+ var fs = require('fs');
+   fs.writeFile("config.txt", json_string, function(err) {
+       if(err) {
+           return console.log(err);
+       }
+   });
+ res.send("File saved.");
+});
+
 console.log("Server started on http://localhost:8080");
+
 app.listen(8080);
