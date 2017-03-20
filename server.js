@@ -23,7 +23,7 @@ app.get('/save', function(req, res){
 app.get('/load', function(req, res){
 
   var fs = require('fs');
-    fs.readFile("config.json", 'utf8', function(err, data) {
+    fs.readFile("config.txt", 'utf8', function(err, data) {
       if(err) return console.log(err);
       var content = JSON.parse(data);
       console.log(content);

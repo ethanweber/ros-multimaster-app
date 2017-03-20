@@ -50,3 +50,10 @@
       }
       return obj;
     }
+
+    function clear_computer_list() {
+      computer_list = [];
+      computer_num = 0;
+      document.getElementById("computer_fields").innerHTML = "";
+
+    }

@@ -11,8 +11,6 @@
 
     function rostopic_status_checker() {
       var current_time = new Date().getTime();
-      // console.log(current_time);
-      // console.log(rostopic_list[0].last_update);
       for (var i = 0; i < rostopic_list.length; i++) {
         if ( (current_time - rostopic_list[0].last_update) > 2000 ) {
           document.getElementById('topic_status_' + (i+1) ).style.color = "red";
@@ -62,6 +60,8 @@
     });
     function update_rostopic_dropdowns() {
       for (var i = 0; i < rostopic_list.length; i++) {
+        var current_sub_comp = document.getElementById('subscribe_computers_' + (i+1) ).value;
+        var current_pub_comp = document.getElementById('publish_computers_' + (i+1) ).value;
         var sub_comp_div = document.getElementById('subscribe_computers_' + (i+1) );
         var pub_comp_div = document.getElementById('publish_computers_' + (i+1) );
         sub_comp_div.innerHTML = "";
@@ -72,7 +72,10 @@
             sub_comp_div.innerHTML += "<option>" + name + "</option>";
             pub_comp_div.innerHTML += "<option>" + name + "</option>";
           }
+          document.getElementById('subscribe_computers_' + (i+1) ).value = name;
         }
+        document.getElementById('subscribe_computers_' + (i+1) ).value = current_sub_comp;
+        document.getElementById('publish_computers_' + (i+1) ).value = current_pub_comp;
       }
     }
     function rostopic_route() {
@@ -83,7 +86,7 @@
       obj.pub_topic;
       obj.last_update = new Date().getTime();
       obj.initialize = function(num, sub_comp, sub_topic, pub_comp, pub_topic, msg_type) {
-        // obj.name = name;
+        
         console.log(num);
         console.log(sub_comp);
         console.log(sub_topic);
@@ -148,3 +151,10 @@
       event.preventDefault();
       update_rostopic_routes();
     });
+
+    function clear_rostopic_list() {
+      rostopic_list = [];
+      rostopic_num = 0;
+      document.getElementById("rostopic_fields").innerHTML = "";
+
+    }
