@@ -1,0 +1,20 @@
+{
+  "name": "rostopic_mapper",
+  "version": "1.0.0",
+  "description": "This program is to pass rostopic messages between computers on the same network.",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.15.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.mit.edu:ejweber/rostopic_mapper.git"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -10,11 +10,14 @@
       // var object = JSON.parse(json_string);
       // console.log(object);
 
-      var parameters = { json: json_string };
-      $.get( '/save',parameters, function(data) {
-        // $('#results').html(data);
-        console.log(data);
-      });
+      var filename = prompt("Please enter the filename to be saved.", "config.txt");
+      if (filename != null) {
+        var parameters = { json: json_string, name: filename };
+        $.get( '/save',parameters, function(data) {
+          // $('#results').html(data);
+          console.log(data);
+        });
+      }
     });
 
     document.getElementById("load_data").addEventListener("click", function(event){
@@ -23,9 +26,13 @@
       clear_computer_list();
       clear_rostopic_list();
 
-      var master_list;
+      var filename = "";
+      var f = document.getElementById("config_file");
+      filename = f.files[0]['name'];
 
-      $.get( '/load', function(data) {
+      var master_list;
+      var parameters = { file: filename };
+      $.get( '/load', parameters, function(data) {
 
         master_list = data;
 
