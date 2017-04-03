@@ -12,7 +12,7 @@
     function rostopic_status_checker() {
       var current_time = new Date().getTime();
       for (var i = 0; i < rostopic_list.length; i++) {
-        if ( (current_time - rostopic_list[0].last_update) > 2000 ) {
+        if ( (current_time - rostopic_list[0].last_time_stamp) > 2000 ) {
           document.getElementById('topic_status_' + (i+1) ).style.color = "red";
         }
       }
@@ -84,9 +84,11 @@
       obj.storage;// = [6];
       obj.sub_topic;
       obj.pub_topic;
-      obj.last_update = new Date().getTime();
+      obj.last_time_stamp = new Date().getTime();
+      obj.recently_sent = []
+
       obj.initialize = function(num, sub_comp, sub_topic, pub_comp, pub_topic, msg_type) {
-        
+
         console.log(num);
         console.log(sub_comp);
         console.log(sub_topic);
@@ -125,13 +127,26 @@
         });
 
         obj.sub_topic.subscribe(function(message) {
-          console.log('Received message on ' + sub_topic.name + ': ' + sub_topic.data);
-          // listener.unsubscribe();
-          // document.body.style.backgroundColor = "green";
-          last_update = new Date().getTime();
+
+          msg_str = JSON.stringify(message);
+
+          console.log('Received message on ' + obj.sub_topic.name + ': ' + msg_str);
+
+          last_time_stamp = new Date().getTime();
+          // console.log(last_time_stamp);
           document.getElementById('topic_status_' + num ).style.color = "green";
-          console.log(last_update);
-          obj.pub_topic.publish(message);
+
+          if (obj.recently_sent.indexOf(msg_str) >= 0) {
+            //don't send the message
+            console.log("Repeat.");
+          } else {
+            //send the message
+            obj.recently_sent.push(msg_str);
+            if (obj.recently_sent.length > 10) obj.recently_sent.shift();
+            console.log(obj.recently_sent);
+            obj.pub_topic.publish(message);
+            console.log('Sent message to ' + obj.pub_topic.name + ': ' + msg_str);
+          }
         });
       }
       return obj;

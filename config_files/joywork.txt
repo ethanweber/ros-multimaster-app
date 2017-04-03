@@ -1,0 +1,1 @@
+{ "computer_list" : [{"name": "desktop","ip": "128.31.37.138"},{"name": "laptop","ip": "128.31.37.138"}],"rostopic_list" : [{"from": "desktop","sub": "/joy","to": "laptop","pub": "/joy","msg_type": "sensor_msgs/Joy"},{"from": "laptop","sub": "/joy","to": "desktop","pub": "/joy","msg_type": "sensor_msgs/Joy"}]}
