@@ -1,0 +1,1 @@
+{ "computer_list" : [{"name": "desktop_1","ip": "128.31.37.132"},{"name": "desktop_2","ip": "128.31.37.132"}],"rostopic_list" : [{"from": "desktop_1","sub": "/chatter_1","to": "desktop_2","pub": "/chatter_2","msg_type": "std_msgs/String"},{"from": "desktop_2","sub": "/chatter_2","to": "desktop_1","pub": "/chatter_1","msg_type": "std_msgs/String"}]}

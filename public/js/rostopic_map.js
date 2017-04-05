@@ -18,11 +18,11 @@
       }
     }
 
-
     document.getElementById("new_rostopic_field").addEventListener("click", function(event){
       event.preventDefault();
       new_rostopic_field();
     });
+
     function new_rostopic_field() {
       rostopic_num += 1;
       rostopic_list.push(new rostopic_route());
@@ -86,6 +86,7 @@
       obj.pub_topic;
       obj.last_time_stamp = new Date().getTime();
       obj.recently_sent = []
+      obj.recently_received = []
 
       obj.initialize = function(num, sub_comp, sub_topic, pub_comp, pub_topic, msg_type) {
 
@@ -130,23 +131,35 @@
 
           msg_str = JSON.stringify(message);
 
-          console.log('Received message on ' + obj.sub_topic.name + ': ' + msg_str);
-
+          // change the color to green when in use
           last_time_stamp = new Date().getTime();
-          // console.log(last_time_stamp);
           document.getElementById('topic_status_' + num ).style.color = "green";
 
+          // make sure recieved message isn't a repeat
           if (obj.recently_sent.indexOf(msg_str) >= 0) {
-            //don't send the message
-            console.log("Repeat.");
+            //don't continue
+            console.log("Repeat received.");
           } else {
-            //send the message
+            console.log('Received message on ' + obj.sub_topic.name + ': ' + msg_str);
             obj.recently_sent.push(msg_str);
             if (obj.recently_sent.length > 10) obj.recently_sent.shift();
-            console.log(obj.recently_sent);
             obj.pub_topic.publish(message);
-            console.log('Sent message to ' + obj.pub_topic.name + ': ' + msg_str);
           }
+
+          // this should fix the infinite loop
+          // if (obj.recently_sent.indexOf(msg_str) >= 0) {
+          //   //don't send the message
+          //   console.log("Repeat attempt to send.");
+          // } else {
+          //   //send the message
+          //   obj.recently_sent.push(msg_str);
+          //   if (obj.recently_sent.length > 10) obj.recently_sent.shift();
+          //   console.log(obj.recently_sent);
+          //   obj.pub_topic.publish(message);
+          //   console.log('Sent message to ' + obj.pub_topic.name + ': ' + msg_str);
+          // }
+
+          console.log("End.");
         });
       }
       return obj;
