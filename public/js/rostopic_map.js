@@ -50,6 +50,8 @@
           <input type=\"text\" class=\"form-control\" id=\"msg_type_" + rostopic_num + "\" placeholder=\"Enter type\">\
         </div>\
         <div class=\"form-group\">\
+          <input type=\"checkbox\" id=\"checkbox_" + rostopic_num + "\" value=\"\">\
+          <img class=\"resize\" src=\"/img/loop.jpg\"></img>\
           <label style=\"color:red\" id=\"topic_status_" + rostopic_num + "\">STATUS</label>\
         </div>");
     }
@@ -81,24 +83,103 @@
     function rostopic_route() {
       var obj = {};
       obj.num;
-      obj.storage;// = [6];
       obj.sub_topic;
       obj.pub_topic;
       obj.last_time_stamp = new Date().getTime();
       obj.recently_sent = []
       obj.recently_received = []
+      obj.loop;
 
-      obj.initialize = function(num, sub_comp, sub_topic, pub_comp, pub_topic, msg_type) {
+      obj.normal_init = function(num, sub_comp, sub_topic, pub_comp, pub_topic, msg_type) {
+        // get the correct computers
+        var sub_computer;
+        var pub_computer;
+        for (var i = 0; i < computer_list.length; i++ ) {
+          if (sub_comp == computer_list[i].name) {
+            sub_computer = computer_list[i].ros;
+            console.log(sub_computer);
+          }
+        }
+        for (var i = 0; i < computer_list.length; i++ ) {
+          if (pub_comp == computer_list[i].name) {
+            pub_computer = computer_list[i].ros;
+            console.log(pub_computer);
+          }
+        }
+        obj.sub_topic = new ROSLIB.Topic({
+          ros : sub_computer,
+          name : sub_topic,
+          messageType : msg_type
+        });
+
+        obj.pub_topic = new ROSLIB.Topic({
+          ros : pub_computer,
+          name : pub_topic,
+          messageType : msg_type
+        });
+
+        obj.sub_topic.subscribe(function(message) {
+          obj.pub_topic.publish(message);
+        });
+      };
+
+      obj.loop_init = function(num, sub_comp, sub_topic, pub_comp, pub_topic, msg_type) {
+        var sub_computer;
+        var pub_computer;
+        for (var i = 0; i < computer_list.length; i++ ) {
+          if (sub_comp == computer_list[i].name) {
+            sub_computer = computer_list[i].ros;
+            console.log(sub_computer);
+          }
+        }
+        for (var i = 0; i < computer_list.length; i++ ) {
+          if (pub_comp == computer_list[i].name) {
+            pub_computer = computer_list[i].ros;
+            console.log(pub_computer);
+          }
+        }
+
+        obj.sub_topic = new ROSLIB.Topic({
+          ros : sub_computer,
+          name : sub_topic,
+          messageType : msg_type
+        });
+
+        obj.pub_topic = new ROSLIB.Topic({
+          ros : pub_computer,
+          name : pub_topic,
+          messageType : msg_type
+        });
+
+        obj.sub_topic.subscribe(function(message) {
+          obj.pub_topic.publish(message);
+        });
+
+        obj.pub_topic.subscribe(function(message) {
+          obj.sub_topic.publish(message);
+        });
+
+        //ETHAN NEEDS TO ADD SOME FILTERS RIGHT ABOVE HERE AND CLEAN UP THE INITIALIZE FUNCTION
+
+      };
+
+      obj.initialize = function(num, sub_comp, sub_topic, pub_comp, pub_topic, msg_type, checked) {
 
         console.log(num);
         console.log(sub_comp);
         console.log(sub_topic);
         console.log(pub_comp);
         console.log(pub_topic);
-
+        console.log(msg_type);
+        console.log(checked);
         obj.num = num;
+        obj.loop = checked;
 
-        obj.storage = [num, sub_comp, sub_topic, pub_comp, pub_topic, msg_type];
+        if (obj.loop) {
+          obj.loop_init(num, sub_comp, sub_topic, pub_comp, pub_topic, msg_type);
+        } else {
+          obj.normal_init(num, sub_comp, sub_topic, pub_comp, pub_topic, msg_type);
+        }
 
         var sub_computer;
         var pub_computer;
@@ -164,6 +245,7 @@
       }
       return obj;
     }
+
     function update_rostopic_routes() {
       // console.log("here we go :D");
       for (var i = 0; i < rostopic_list.length; i++) {
@@ -172,7 +254,8 @@
         var pub_comp = document.getElementById('publish_computers_' + (i+1) ).value;
         var pub_topic = document.getElementById('pub_topic_' + (i+1) ).value;
         var msg_type = document.getElementById('msg_type_' + (i+1) ).value;
-        rostopic_list[i].initialize(i+1, sub_comp, sub_topic, pub_comp, pub_topic, msg_type);
+        var checked = document.getElementById('checkbox_' + (i+1) ).checked;
+        rostopic_list[i].initialize(i+1, sub_comp, sub_topic, pub_comp, pub_topic, msg_type, checked);
       }
     }
     document.getElementById("start_routing").addEventListener("click", function(event){

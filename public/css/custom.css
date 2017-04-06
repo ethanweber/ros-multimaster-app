@@ -29,3 +29,11 @@ h2 {
   /*display: inline-block;*/
   font-weight: bold;
 }
+
+
+img.resize{
+   /*max-width:40%;
+   max-height:40%;*/
+   height: 40px;
+   width: 40px;
+}
