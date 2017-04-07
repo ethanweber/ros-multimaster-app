@@ -1,0 +1,1 @@
+{ "computer_list" : [{"name": "desktop","ip": "128.31.35.171"}],"rostopic_list" : [{"from": "desktop","sub": "asd","to": "desktop","pub": "ngd","msg_type": "art","checked": "true"}]}

@@ -1,1 +1,1 @@
-{ "computer_list" : [{"name": "tester","ip": "183.1.3.1"}],"rostopic_list" : []}
+{ "computer_list" : [{"name": "asd","ip": "345"}],"rostopic_list" : [{"from": "asd","sub": "mn","to": "asd","pub": "ffg","msg_type": "78","checked": "true"}]}

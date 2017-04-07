@@ -82,12 +82,13 @@
     }
     function rostopic_route() {
       var obj = {};
+      obj.storage;
       obj.num;
       obj.sub_topic;
       obj.pub_topic;
       obj.last_time_stamp = new Date().getTime();
-      obj.recently_sent = []
-      obj.recently_received = []
+      obj.recently_sent_from_sub = []
+      obj.recently_sent_from_pub = []
       obj.loop;
 
       obj.normal_init = function(num, sub_comp, sub_topic, pub_comp, pub_topic, msg_type) {
@@ -152,18 +153,40 @@
         });
 
         obj.sub_topic.subscribe(function(message) {
-          obj.pub_topic.publish(message);
+          var msg_str = JSON.stringify(message);
+          if (recently_sent_from_pub.indexOf(msg_str) < 0) {
+            obj.pub_topic.publish(message);
+            obj.recently_sent_from_sub.push(msg_str);
+            if (obj.recently_sent_from_sub.length > 10) obj.recently_sent_from_sub.shift();
+          }
         });
 
         obj.pub_topic.subscribe(function(message) {
-          obj.sub_topic.publish(message);
+          var msg_str = JSON.stringify(message);
+          if (recently_sent_from_sub.indexOf(msg_str) < 0) {
+            obj.sub_topic.publish(message);
+            obj.recently_sent_from_pub.push(msg_str);
+            if (obj.recently_sent_from_pub.length > 10) obj.recently_sent_from_pub.shift();
+          }
         });
+
+        // if (obj.recently_sent.indexOf(msg_str) >= 0) {
+        //   //don't continue
+        //   console.log("Repeat received.");
+        // } else {
+        //   console.log('Received message on ' + obj.sub_topic.name + ': ' + msg_str);
+        //   obj.recently_sent.push(msg_str);
+        //   if (obj.recently_sent.length > 10) obj.recently_sent.shift();
+        //   obj.pub_topic.publish(message);
+        // }
 
         //ETHAN NEEDS TO ADD SOME FILTERS RIGHT ABOVE HERE AND CLEAN UP THE INITIALIZE FUNCTION
 
       };
 
       obj.initialize = function(num, sub_comp, sub_topic, pub_comp, pub_topic, msg_type, checked) {
+
+        obj.storage = [num, sub_comp, sub_topic, pub_comp, pub_topic, msg_type, checked];
 
         console.log(num);
         console.log(sub_comp);
@@ -172,6 +195,7 @@
         console.log(pub_topic);
         console.log(msg_type);
         console.log(checked);
+
         obj.num = num;
         obj.loop = checked;
 
@@ -181,67 +205,67 @@
           obj.normal_init(num, sub_comp, sub_topic, pub_comp, pub_topic, msg_type);
         }
 
-        var sub_computer;
-        var pub_computer;
-        for (var i = 0; i < computer_list.length; i++ ) {
-          if (sub_comp == computer_list[i].name) {
-            sub_computer = computer_list[i].ros;
-            console.log(sub_computer);
-          }
-        }
-        for (var i = 0; i < computer_list.length; i++ ) {
-          if (pub_comp == computer_list[i].name) {
-            pub_computer = computer_list[i].ros;
-            console.log(pub_computer);
-          }
-        }
-
-        obj.sub_topic = new ROSLIB.Topic({
-          ros : sub_computer,
-          name : sub_topic,
-          messageType : msg_type
-        });
-
-        obj.pub_topic = new ROSLIB.Topic({
-          ros : pub_computer,
-          name : pub_topic,
-          messageType : msg_type
-        });
-
-        obj.sub_topic.subscribe(function(message) {
-
-          msg_str = JSON.stringify(message);
-
-          // change the color to green when in use
-          last_time_stamp = new Date().getTime();
-          document.getElementById('topic_status_' + num ).style.color = "green";
-
-          // make sure recieved message isn't a repeat
-          if (obj.recently_sent.indexOf(msg_str) >= 0) {
-            //don't continue
-            console.log("Repeat received.");
-          } else {
-            console.log('Received message on ' + obj.sub_topic.name + ': ' + msg_str);
-            obj.recently_sent.push(msg_str);
-            if (obj.recently_sent.length > 10) obj.recently_sent.shift();
-            obj.pub_topic.publish(message);
-          }
-
-          // this should fix the infinite loop
-          // if (obj.recently_sent.indexOf(msg_str) >= 0) {
-          //   //don't send the message
-          //   console.log("Repeat attempt to send.");
-          // } else {
-          //   //send the message
-          //   obj.recently_sent.push(msg_str);
-          //   if (obj.recently_sent.length > 10) obj.recently_sent.shift();
-          //   console.log(obj.recently_sent);
-          //   obj.pub_topic.publish(message);
-          //   console.log('Sent message to ' + obj.pub_topic.name + ': ' + msg_str);
-          // }
-
-          console.log("End.");
-        });
+        // var sub_computer;
+        // var pub_computer;
+        // for (var i = 0; i < computer_list.length; i++ ) {
+        //   if (sub_comp == computer_list[i].name) {
+        //     sub_computer = computer_list[i].ros;
+        //     console.log(sub_computer);
+        //   }
+        // }
+        // for (var i = 0; i < computer_list.length; i++ ) {
+        //   if (pub_comp == computer_list[i].name) {
+        //     pub_computer = computer_list[i].ros;
+        //     console.log(pub_computer);
+        //   }
+        // }
+        //
+        // obj.sub_topic = new ROSLIB.Topic({
+        //   ros : sub_computer,
+        //   name : sub_topic,
+        //   messageType : msg_type
+        // });
+        //
+        // obj.pub_topic = new ROSLIB.Topic({
+        //   ros : pub_computer,
+        //   name : pub_topic,
+        //   messageType : msg_type
+        // });
+        //
+        // obj.sub_topic.subscribe(function(message) {
+        //
+        //   msg_str = JSON.stringify(message);
+        //
+        //   // change the color to green when in use
+        //   last_time_stamp = new Date().getTime();
+        //   document.getElementById('topic_status_' + num ).style.color = "green";
+        //
+        //   // make sure recieved message isn't a repeat
+        //   if (obj.recently_sent.indexOf(msg_str) >= 0) {
+        //     //don't continue
+        //     console.log("Repeat received.");
+        //   } else {
+        //     console.log('Received message on ' + obj.sub_topic.name + ': ' + msg_str);
+        //     obj.recently_sent.push(msg_str);
+        //     if (obj.recently_sent.length > 10) obj.recently_sent.shift();
+        //     obj.pub_topic.publish(message);
+        //   }
+        //
+        //   // this should fix the infinite loop
+        //   // if (obj.recently_sent.indexOf(msg_str) >= 0) {
+        //   //   //don't send the message
+        //   //   console.log("Repeat attempt to send.");
+        //   // } else {
+        //   //   //send the message
+        //   //   obj.recently_sent.push(msg_str);
+        //   //   if (obj.recently_sent.length > 10) obj.recently_sent.shift();
+        //   //   console.log(obj.recently_sent);
+        //   //   obj.pub_topic.publish(message);
+        //   //   console.log('Sent message to ' + obj.pub_topic.name + ': ' + msg_str);
+        //   // }
+        //
+        //   console.log("End.");
+        // });
       }
       return obj;
     }
@@ -254,7 +278,7 @@
         var pub_comp = document.getElementById('publish_computers_' + (i+1) ).value;
         var pub_topic = document.getElementById('pub_topic_' + (i+1) ).value;
         var msg_type = document.getElementById('msg_type_' + (i+1) ).value;
-        var checked = document.getElementById('checkbox_' + (i+1) ).checked;
+        var checked = (document.getElementById('checkbox_' + (i+1) ).checked).toString();
         rostopic_list[i].initialize(i+1, sub_comp, sub_topic, pub_comp, pub_topic, msg_type, checked);
       }
     }
