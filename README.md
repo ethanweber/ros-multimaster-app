@@ -13,5 +13,14 @@ Navigate to this directory and run node server.js to use the application. Then n
 
 Here's how to run:
 ```
-roslaunch ....
+roslaunch rodbridge_server rosbridge_websocket.launch on each computer
+
+node server.js
+
+open localhost:8080
+
+add files or load file
+
+to save, save as .txt file after clicking start routing button
+
 ```
