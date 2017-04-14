@@ -1241,7 +1241,7 @@ function SimpleActionServer(options) {
     this.nextGoal = null; // the one that'll be preempting
 
     goalListener.subscribe(function(goalMessage) {
-        
+
     if(that.currentGoal) {
             that.nextGoal = goalMessage;
             // needs to happen AFTER rest is set up
@@ -1292,7 +1292,7 @@ function SimpleActionServer(options) {
             }
             if(that.currentGoal && isEarlier(that.currentGoal.goal_id.stamp,
                                              cancelMessage.stamp)) {
-                
+
                 that.emit('cancel');
             }
         }
@@ -1317,7 +1317,7 @@ SimpleActionServer.prototype.__proto__ = EventEmitter2.prototype;
 */
 
 SimpleActionServer.prototype.setSucceeded = function(result2) {
-    
+
 
     var resultMessage = new Message({
         status : {goal_id : this.currentGoal.goal_id, status : 3},
@@ -3060,7 +3060,7 @@ var tf = module.exports = {
 mixin(Ros, ['TFClient'], tf);
 },{"../core/Ros":12,"../mixin":24,"./TFClient":25}],27:[function(require,module,exports){
 /**
- * @fileOverview 
+ * @fileOverview
  * @author Benjamin Pitzer - ben.pitzer@gmail.com
  * @author Russell Toris - rctoris@wpi.edu
  */
@@ -3091,7 +3091,7 @@ function UrdfBox(options) {
 module.exports = UrdfBox;
 },{"../math/Vector3":22,"./UrdfTypes":36}],28:[function(require,module,exports){
 /**
- * @fileOverview 
+ * @fileOverview
  * @author Benjamin Pitzer - ben.pitzer@gmail.com
  * @author Russell Toris - rctoris@wpi.edu
  */
@@ -3115,7 +3115,7 @@ function UrdfColor(options) {
 module.exports = UrdfColor;
 },{}],29:[function(require,module,exports){
 /**
- * @fileOverview 
+ * @fileOverview
  * @author Benjamin Pitzer - ben.pitzer@gmail.com
  * @author Russell Toris - rctoris@wpi.edu
  */
@@ -3138,7 +3138,7 @@ function UrdfCylinder(options) {
 module.exports = UrdfCylinder;
 },{"./UrdfTypes":36}],30:[function(require,module,exports){
 /**
- * @fileOverview 
+ * @fileOverview
  * @author David V. Lu!!  davidvlu@gmail.com
  */
 
@@ -3152,7 +3152,7 @@ module.exports = UrdfCylinder;
 function UrdfJoint(options) {
   this.name = options.xml.getAttribute('name');
   this.type = options.xml.getAttribute('type');
-  
+
   var limits = options.xml.getElementsByTagName('limit');
   if (limits.length > 0) {
     this.minval = parseFloat( limits[0].getAttribute('lower') );
@@ -3164,7 +3164,7 @@ module.exports = UrdfJoint;
 
 },{}],31:[function(require,module,exports){
 /**
- * @fileOverview 
+ * @fileOverview
  * @author Benjamin Pitzer - ben.pitzer@gmail.com
  * @author Russell Toris - rctoris@wpi.edu
  */
@@ -3193,7 +3193,7 @@ function UrdfLink(options) {
 module.exports = UrdfLink;
 },{"./UrdfVisual":37}],32:[function(require,module,exports){
 /**
- * @fileOverview 
+ * @fileOverview
  * @author Benjamin Pitzer - ben.pitzer@gmail.com
  * @author Russell Toris - rctoris@wpi.edu
  */
@@ -3243,7 +3243,7 @@ module.exports = UrdfMaterial;
 
 },{"./UrdfColor":28,"object-assign":2}],33:[function(require,module,exports){
 /**
- * @fileOverview 
+ * @fileOverview
  * @author Benjamin Pitzer - ben.pitzer@gmail.com
  * @author Russell Toris - rctoris@wpi.edu
  */
@@ -3280,7 +3280,7 @@ function UrdfMesh(options) {
 module.exports = UrdfMesh;
 },{"../math/Vector3":22,"./UrdfTypes":36}],34:[function(require,module,exports){
 /**
- * @fileOverview 
+ * @fileOverview
  * @author Benjamin Pitzer - ben.pitzer@gmail.com
  * @author Russell Toris - rctoris@wpi.edu
  */
@@ -3351,7 +3351,7 @@ function UrdfModel(options) {
         // Check for a material
         for( var j=0; j<link.visuals.length; j++ )
         {
-          var mat = link.visuals[j].material; 
+          var mat = link.visuals[j].material;
           if ( mat !== null ) {
             if (this.materials[mat.name] !== void 0) {
               link.visuals[j].material = this.materials[mat.name];
@@ -3377,7 +3377,7 @@ module.exports = UrdfModel;
 
 },{"./UrdfJoint":30,"./UrdfLink":31,"./UrdfMaterial":32,"xmldom":42}],35:[function(require,module,exports){
 /**
- * @fileOverview 
+ * @fileOverview
  * @author Benjamin Pitzer - ben.pitzer@gmail.com
  * @author Russell Toris - rctoris@wpi.edu
  */
@@ -3407,7 +3407,7 @@ module.exports = {
 
 },{}],37:[function(require,module,exports){
 /**
- * @fileOverview 
+ * @fileOverview
  * @author Benjamin Pitzer - ben.pitzer@gmail.com
  * @author Russell Toris - rctoris@wpi.edu
  */

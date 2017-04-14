@@ -10,3 +10,8 @@ Navigate to this directory and run node server.js to use the application. Then n
 
 # Example Use
 ![Alt text](images/screenshot_example.png?raw=true "Example Use")
+
+Here's how to run:
+```
+roslaunch ....
+```
