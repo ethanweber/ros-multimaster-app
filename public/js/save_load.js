@@ -64,7 +64,7 @@
           document.getElementById('publish_computers_' + (i+1) ).value = pub_comp;
           document.getElementById('pub_topic_' + (i+1) ).value = pub_topic;
           document.getElementById('msg_type_' + (i+1) ).value = msg_type;
-          document.getElementById('checkbox_' + (i+1) ).checked = checkbox;
+          document.getElementById('checkbox_' + (i+1) ).checked = (checkbox == "true");
           rostopic_list[i].initialize(i+1, sub_comp, sub_topic, pub_comp, pub_topic, msg_type, checkbox);
         }
 

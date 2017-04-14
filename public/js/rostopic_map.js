@@ -91,6 +91,18 @@
       obj.recently_sent_from_pub = []
       obj.loop;
 
+      obj.unsubscribe_all = function() {
+
+        try {
+            obj.sub_topic.unsubscribe();
+            obj.pub_topic.unsubscribe();
+        }
+        catch(err) {
+            console.log("Nothing to unsubscribe.")
+        }
+
+      };
+
       obj.normal_init = function(num, sub_comp, sub_topic, pub_comp, pub_topic, msg_type) {
         // get the correct computers
         var sub_computer;
@@ -120,6 +132,11 @@
         });
 
         obj.sub_topic.subscribe(function(message) {
+
+          // change the color to green when in use
+          last_time_stamp = new Date().getTime();
+          document.getElementById('topic_status_' + num ).style.color = "green";
+
           obj.pub_topic.publish(message);
         });
       };
@@ -153,8 +170,13 @@
         });
 
         obj.sub_topic.subscribe(function(message) {
+
+          // change the color to green when in use
+          last_time_stamp = new Date().getTime();
+          document.getElementById('topic_status_' + num ).style.color = "green";
+
           var msg_str = JSON.stringify(message);
-          if (recently_sent_from_pub.indexOf(msg_str) < 0) {
+          if (obj.recently_sent_from_pub.indexOf(msg_str) < 0) {
             obj.pub_topic.publish(message);
             obj.recently_sent_from_sub.push(msg_str);
             if (obj.recently_sent_from_sub.length > 10) obj.recently_sent_from_sub.shift();
@@ -162,26 +184,18 @@
         });
 
         obj.pub_topic.subscribe(function(message) {
+
+          // change the color to green when in use
+          last_time_stamp = new Date().getTime();
+          document.getElementById('topic_status_' + num ).style.color = "green";
+
           var msg_str = JSON.stringify(message);
-          if (recently_sent_from_sub.indexOf(msg_str) < 0) {
+          if (obj.recently_sent_from_sub.indexOf(msg_str) < 0) {
             obj.sub_topic.publish(message);
             obj.recently_sent_from_pub.push(msg_str);
             if (obj.recently_sent_from_pub.length > 10) obj.recently_sent_from_pub.shift();
           }
         });
-
-        // if (obj.recently_sent.indexOf(msg_str) >= 0) {
-        //   //don't continue
-        //   console.log("Repeat received.");
-        // } else {
-        //   console.log('Received message on ' + obj.sub_topic.name + ': ' + msg_str);
-        //   obj.recently_sent.push(msg_str);
-        //   if (obj.recently_sent.length > 10) obj.recently_sent.shift();
-        //   obj.pub_topic.publish(message);
-        // }
-
-        //ETHAN NEEDS TO ADD SOME FILTERS RIGHT ABOVE HERE AND CLEAN UP THE INITIALIZE FUNCTION
-
       };
 
       obj.initialize = function(num, sub_comp, sub_topic, pub_comp, pub_topic, msg_type, checked) {
@@ -199,73 +213,14 @@
         obj.num = num;
         obj.loop = checked;
 
-        if (obj.loop) {
+        if (obj.loop == "true") {
           obj.loop_init(num, sub_comp, sub_topic, pub_comp, pub_topic, msg_type);
+          console.log("Loop init.")
         } else {
           obj.normal_init(num, sub_comp, sub_topic, pub_comp, pub_topic, msg_type);
+          console.log("Normal init.")
         }
 
-        // var sub_computer;
-        // var pub_computer;
-        // for (var i = 0; i < computer_list.length; i++ ) {
-        //   if (sub_comp == computer_list[i].name) {
-        //     sub_computer = computer_list[i].ros;
-        //     console.log(sub_computer);
-        //   }
-        // }
-        // for (var i = 0; i < computer_list.length; i++ ) {
-        //   if (pub_comp == computer_list[i].name) {
-        //     pub_computer = computer_list[i].ros;
-        //     console.log(pub_computer);
-        //   }
-        // }
-        //
-        // obj.sub_topic = new ROSLIB.Topic({
-        //   ros : sub_computer,
-        //   name : sub_topic,
-        //   messageType : msg_type
-        // });
-        //
-        // obj.pub_topic = new ROSLIB.Topic({
-        //   ros : pub_computer,
-        //   name : pub_topic,
-        //   messageType : msg_type
-        // });
-        //
-        // obj.sub_topic.subscribe(function(message) {
-        //
-        //   msg_str = JSON.stringify(message);
-        //
-        //   // change the color to green when in use
-        //   last_time_stamp = new Date().getTime();
-        //   document.getElementById('topic_status_' + num ).style.color = "green";
-        //
-        //   // make sure recieved message isn't a repeat
-        //   if (obj.recently_sent.indexOf(msg_str) >= 0) {
-        //     //don't continue
-        //     console.log("Repeat received.");
-        //   } else {
-        //     console.log('Received message on ' + obj.sub_topic.name + ': ' + msg_str);
-        //     obj.recently_sent.push(msg_str);
-        //     if (obj.recently_sent.length > 10) obj.recently_sent.shift();
-        //     obj.pub_topic.publish(message);
-        //   }
-        //
-        //   // this should fix the infinite loop
-        //   // if (obj.recently_sent.indexOf(msg_str) >= 0) {
-        //   //   //don't send the message
-        //   //   console.log("Repeat attempt to send.");
-        //   // } else {
-        //   //   //send the message
-        //   //   obj.recently_sent.push(msg_str);
-        //   //   if (obj.recently_sent.length > 10) obj.recently_sent.shift();
-        //   //   console.log(obj.recently_sent);
-        //   //   obj.pub_topic.publish(message);
-        //   //   console.log('Sent message to ' + obj.pub_topic.name + ': ' + msg_str);
-        //   // }
-        //
-        //   console.log("End.");
-        // });
       }
       return obj;
     }
@@ -273,6 +228,7 @@
     function update_rostopic_routes() {
       // console.log("here we go :D");
       for (var i = 0; i < rostopic_list.length; i++) {
+        rostopic_list[i].unsubscribe_all();
         var sub_comp = document.getElementById('subscribe_computers_' + (i+1) ).value;
         var sub_topic = document.getElementById('sub_topic_' + (i+1) ).value;
         var pub_comp = document.getElementById('publish_computers_' + (i+1) ).value;

@@ -1,0 +1,1 @@
+{ "computer_list" : [{"name": "desktop","ip": "192.168.2.102"},{"name": "loki","ip": "192.168.2.100"}],"rostopic_list" : [{"from": "loki","sub": "/tf","to": "desktop","pub": "/tf","msg_type": "tf2_msgs/TFMessage","checked": "false"}]}
