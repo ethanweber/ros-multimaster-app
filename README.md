@@ -24,3 +24,12 @@ add files or load file
 to save, save as .txt file after clicking start routing button
 
 ```
+
+
+FIXED PROBLEM:
+
+there was a 10 ms delay in the old code on the loki robot. rosbridge_suite needed to be updated
+
+https://github.com/RobotWebTools/rosbridge_suite/issues/203
+
+https://github.com/RobotWebTools/rosbridge_suite/blob/d7138dc810aa77b8066a0a2d77195172221a1977/rosbridge_library/src/rosbridge_library/protocol.py#L247-L248
