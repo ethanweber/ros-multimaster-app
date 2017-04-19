@@ -1,0 +1,1 @@
+{ "computer_list" : [{"name": "robot1","ip": "18.1.2.1"},{"name": "robot2","ip": "18.3.2.5"},{"name": "robot3","ip": "18.5.4.6"}],"rostopic_list" : [{"from": "robot1","sub": "/tf","to": "robot2","pub": "/tf","msg_type": "msgtype"},{"from": "robot1","sub": "/tf","to": "robot3","pub": "/tf","msg_type": "msgtype"}]}
