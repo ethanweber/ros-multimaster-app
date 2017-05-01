@@ -16,17 +16,40 @@
   right: 50px;
 }*/
 
-hr {
+/*.thick {
     display: block;
-    height: 1px;
+    height: 10px;
     border: 0;
     border-top: 1px solid #ccc;
     margin: 1em 0;
     padding: 0;
+}*/
+
+.btn-default {
+  margin: 2px;
+}
+
+hr.thick_line {
+  display: block;
+  height: 10px;
+  border: 0;
+  border-top: 5px solid #808080;
+  margin: 1em 0;
+  padding: 0;
+}
+
+.subsection {
+  background-color: #DCDCDC;
+  padding-bottom: 5px;
+  background-clip: content-box;
 }
 
 h2 {
-  /*display: inline-block;*/
+  font-weight: bold;
+  text-align: center;
+}
+
+h4 {
   font-weight: bold;
 }
 
@@ -36,4 +59,63 @@ img.resize{
    max-height:40%;*/
    height: 40px;
    width: 40px;
+}
+
+/*.message_group {
+  display: block;
+}*/
+
+.message_group h4 {
+  display: inline-block;
+}
+
+.rostopic_mapper {
+  width: 50%;
+  float: left;
+  background-color: #FF7F50;
+  border-style: solid;
+  text-align: center;
+}
+
+.rosservice_mapper{
+  width: 50%;
+  float: right;
+  background-color: #7FFF00;
+  border-style: solid;
+  text-align: center;
+
+}
+
+.file_block {
+  /*display: block;
+  text-align: center;
+  width: 45%;
+  margin: auto;*/
+  width: 50%;
+  background-color: #FFD700;
+  border-style: solid;
+  text-align: center;
+  margin-top: 5px;
+  float: left;
+  margin-bottom: 5px;
+  /*margin-left: auto;
+  margin-right: auto;*/
+}
+
+.network_block {
+  /*display: inline-block;*/
+  margin: auto;
+  padding-bottom: 10px;
+}
+
+.computer_block {
+  width: 50%;
+  background-color: #00FFFF;
+  border-style: solid;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  float: right;
+  /*margin-left: auto;
+  margin-right: auto;*/
 }

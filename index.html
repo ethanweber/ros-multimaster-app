@@ -16,31 +16,19 @@
 </head>
 <body>
 
-<div class="container">
-  <h2>Rostopic Mapper</h2>
-  <hr/>
-  <h4 id="local_ip"></h6>
-  <hr/>
-  <input id="config_file" type="file" class="btn btn-default"></input>
-  <button id="load_data" class="btn btn-default">Upload File</input>
-  <button id="save_data" class="btn btn-default">Save File</button>
-  <hr/>
-  <form>
-    <div id="computer_fields"></div>
-    <button id="new_computer_field" class="btn btn-default">Add Computer</button><br>
-    <button id="submit_computer_fields" class="btn btn-default">Submit</button>
-  </form>
-  <hr/>
-  <form>
-    <div id="rostopic_fields"></div>
-    <button id="new_rostopic_field" class="btn btn-default">Add Rostopic Route</button><br>
-    <button id="refresh_rostopic_fields" class="btn btn-default">Refresh</button>
-  </form>
-  <hr/>
-  <button id="start_routing" class="btn btn-default">Start Routing</button>
+
+<h2>ROS Websocket Bridge</h2>
+
+<div class="network_block">
+
+  <div class="file_block">
+    <h4 id="local_ip"></h6>
+    <input id="config_file" type="file" class="btn btn-default" style="display: inline-block"></input>
+    <button id="load_data" class="btn btn-default" style="display: inline-block">Upload File</input>
+    <button id="save_data" class="btn btn-default" style="display: inline-block">Save File</button>
+  </div>
 
   <script type="text/javascript">
-
     function get_ip_address() {
       $.get("http://ipinfo.io", function(response) {
         console.log(response.ip);
@@ -50,10 +38,48 @@
     get_ip_address();
   </script>
 
-  <script type="text/javascript" src="/js/computer_fields.js"></script>
-  <script type="text/javascript" src="/js/rostopic_map.js"></script>
-  <script type="text/javascript" src="/js/save_load.js"></script>
+  <div class="computer_block">
+    <h4>Computer Fields</h4>
+    <hr class="thick_line">
+    <form>
+      <div id="computer_fields"></div>
+      <button id="new_computer_field" class="btn btn-default">Add Computer</button><br>
+      <button id="submit_computer_fields" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+<div>
+
+<div class="message_group">
+
+  <div class="rostopic_mapper">
+    <h4>ROS Topic Mapper</h4>
+    <hr class="thick_line">
+    <form>
+      <div id="rostopic_fields"></div>
+      <button id="new_rostopic_field" class="btn btn-default">Add Rostopic Route</button><br>
+      <button id="refresh_rostopic_fields" class="btn btn-default">Refresh</button>
+    </form>
+    <hr class="thick_line">
+    <button id="start_topic_routing" class="btn btn-default">Start Topic Routing</button>
+  </div>
+
+  <div class="rosservice_mapper">
+    <h4>ROS Service Mapper</h4>
+    <hr class="thick_line">
+    <form>
+      <div id="rosservice_fields"></div>
+      <button id="new_rosservice_field" class="btn btn-default">Add Rosservice Route</button><br>
+      <button id="refresh_rosservice_fields" class="btn btn-default">Refresh</button>
+    </form>
+    <hr class="thick_line">
+    <button id="start_service_routing" class="btn btn-default">Start Service Routing</button>
+  </div>
+
 </div>
+
+<script type="text/javascript" src="/js/computer_fields.js"></script>
+<script type="text/javascript" src="/js/rostopic_map.js"></script>
+<script type="text/javascript" src="/js/save_load.js"></script>
 
 </body>
 </html>

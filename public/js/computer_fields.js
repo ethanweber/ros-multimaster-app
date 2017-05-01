@@ -12,7 +12,8 @@
       computer_list.push(new computer());
       console.log(computer_list.length);
       $('#computer_fields').append(
-        "<br>\
+        "<div class=\"subsection\">\
+        <br>\
         <div class=\"form-group\">\
           <label for=\"email\">Computer " + computer_num + ":</label>\
           <input type=\"email\" class=\"form-control\" id=\"computer_" + computer_num + "\" placeholder=\"Enter name\">\
@@ -20,6 +21,7 @@
         <div class=\"form-group\">\
           <label for=\"pwd\">IP Address " + computer_num + ":</label>\
           <input type=\"text\" class=\"form-control\" id=\"ip_" + computer_num + "\" placeholder=\"Enter IP\">\
+        </div>\
         </div>");
     }
     document.getElementById("submit_computer_fields").addEventListener("click", function(event){

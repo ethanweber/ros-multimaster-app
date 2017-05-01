@@ -28,7 +28,8 @@
       rostopic_list.push(new rostopic_route());
       console.log(rostopic_list.length);
       $('#rostopic_fields').append(
-        "<br>\
+        "<div class=\"subsection\">\
+        <br>\
         <div class=\"form-group\">\
           <label for=\"sel1\">Computer</label>\
           <select class=\"form-control\" id=\"subscribe_computers_" + rostopic_num + "\"></select>\
@@ -53,7 +54,8 @@
           <input type=\"checkbox\" id=\"checkbox_" + rostopic_num + "\" value=\"\">\
           <img class=\"resize\" src=\"/img/loop.jpg\"></img>\
           <label style=\"color:red\" id=\"topic_status_" + rostopic_num + "\">STATUS</label>\
-        </div>");
+        </div>\
+        <div>");
     }
 
     document.getElementById("refresh_rostopic_fields").addEventListener("click", function(event){
@@ -238,7 +240,7 @@
         rostopic_list[i].initialize(i+1, sub_comp, sub_topic, pub_comp, pub_topic, msg_type, checked);
       }
     }
-    document.getElementById("start_routing").addEventListener("click", function(event){
+    document.getElementById("start_topic_routing").addEventListener("click", function(event){
       event.preventDefault();
       update_rostopic_routes();
     });
