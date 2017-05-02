@@ -32,7 +32,7 @@
         <br>\
         <div class=\"form-group\">\
           <label for=\"sel1\">Computer</label>\
-          <select class=\"form-control\" id=\"subscribe_computers_" + rostopic_num + "\"></select>\
+          <select class=\"form-control\" id=\"topic_subscribe_computers_" + rostopic_num + "\"></select>\
         </div>\
         <div class=\"form-group\">\
           <label for=\"pwd\">Subscribe Topic</label>\
@@ -40,7 +40,7 @@
         </div>\
         <div class=\"form-group\">\
           <label for=\"sel1\">Destination</label>\
-          <select class=\"form-control\" id=\"publish_computers_" + rostopic_num + "\"></select>\
+          <select class=\"form-control\" id=\"topic_publish_computers_" + rostopic_num + "\"></select>\
         </div>\
         <div class=\"form-group\">\
           <label for=\"pwd\">Publish Topic</label>\
@@ -64,10 +64,10 @@
     });
     function update_rostopic_dropdowns() {
       for (var i = 0; i < rostopic_list.length; i++) {
-        var current_sub_comp = document.getElementById('subscribe_computers_' + (i+1) ).value;
-        var current_pub_comp = document.getElementById('publish_computers_' + (i+1) ).value;
-        var sub_comp_div = document.getElementById('subscribe_computers_' + (i+1) );
-        var pub_comp_div = document.getElementById('publish_computers_' + (i+1) );
+        var current_sub_comp = document.getElementById('topic_subscribe_computers_' + (i+1) ).value;
+        var current_pub_comp = document.getElementById('topic_publish_computers_' + (i+1) ).value;
+        var sub_comp_div = document.getElementById('topic_subscribe_computers_' + (i+1) );
+        var pub_comp_div = document.getElementById('topic_publish_computers_' + (i+1) );
         sub_comp_div.innerHTML = "";
         pub_comp_div.innerHTML = "";
         for (var j = 0; j < computer_list.length; j++) {
@@ -76,10 +76,10 @@
             sub_comp_div.innerHTML += "<option>" + name + "</option>";
             pub_comp_div.innerHTML += "<option>" + name + "</option>";
           }
-          document.getElementById('subscribe_computers_' + (i+1) ).value = name;
+          document.getElementById('topic_subscribe_computers_' + (i+1) ).value = name;
         }
-        document.getElementById('subscribe_computers_' + (i+1) ).value = current_sub_comp;
-        document.getElementById('publish_computers_' + (i+1) ).value = current_pub_comp;
+        document.getElementById('topic_subscribe_computers_' + (i+1) ).value = current_sub_comp;
+        document.getElementById('topic_publish_computers_' + (i+1) ).value = current_pub_comp;
       }
     }
     function rostopic_route() {
@@ -100,7 +100,7 @@
             obj.pub_topic.unsubscribe();
         }
         catch(err) {
-            console.log("Nothing to unsubscribe.")
+            console.log("Nothing to unsubscribe.");
         }
 
       };
@@ -231,9 +231,9 @@
       // console.log("here we go :D");
       for (var i = 0; i < rostopic_list.length; i++) {
         rostopic_list[i].unsubscribe_all();
-        var sub_comp = document.getElementById('subscribe_computers_' + (i+1) ).value;
+        var sub_comp = document.getElementById('topic_subscribe_computers_' + (i+1) ).value;
         var sub_topic = document.getElementById('sub_topic_' + (i+1) ).value;
-        var pub_comp = document.getElementById('publish_computers_' + (i+1) ).value;
+        var pub_comp = document.getElementById('topic_publish_computers_' + (i+1) ).value;
         var pub_topic = document.getElementById('pub_topic_' + (i+1) ).value;
         var msg_type = document.getElementById('msg_type_' + (i+1) ).value;
         var checked = (document.getElementById('checkbox_' + (i+1) ).checked).toString();

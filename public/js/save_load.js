@@ -59,9 +59,9 @@
           var sub_topic = master_list.rostopic_list[i]['sub'];
           var pub_comp = master_list.rostopic_list[i]['to'];
           var checkbox = master_list.rostopic_list[i]['checked'];
-          document.getElementById('subscribe_computers_' + (i+1) ).value = sub_comp;
+          document.getElementById('topic_subscribe_computers_' + (i+1) ).value = sub_comp;
           document.getElementById('sub_topic_' + (i+1) ).value = sub_topic;
-          document.getElementById('publish_computers_' + (i+1) ).value = pub_comp;
+          document.getElementById('topic_publish_computers_' + (i+1) ).value = pub_comp;
           document.getElementById('pub_topic_' + (i+1) ).value = pub_topic;
           document.getElementById('msg_type_' + (i+1) ).value = msg_type;
           document.getElementById('checkbox_' + (i+1) ).checked = (checkbox == "true");
