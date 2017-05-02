@@ -173,7 +173,7 @@ function rosservice_route() {
 
     obj.pub_service = new ROSLIB.Service({
       ros : pub_computer,
-      name : sub_service,
+      name : pub_service,
       serviceType : srvs_type
     });
 
@@ -182,14 +182,14 @@ function rosservice_route() {
     // serviceType: 'rospy_tutorials/AddTwoInts'
 
     // Ethan is getting some problems here with an infinite loop
-    obj.sub_service.advertise(function(req, resp) {
-      resp.sum = req.a + req.b;
-      console.log(resp.sum);
+    obj.sub_service.advertise(function(req, resp) { // look into javascript promises
+      // resp.sum = req.a + req.b;
+      // console.log(resp.sum);
       // console.log("Heck yeah!!!");
-      // obj.pub_service.callService(req, function(result) {
-      //   console.log('Result for service call on ' + obj.pub_service.name + ': ' + result.sum);
-      //   resp = result;
-      // });
+      obj.pub_service.callService(req, function(result) {
+        console.log('Result for service call on ' + obj.pub_service.name + ': ' + result.sum);
+        resp = result;
+      });
       return true;
     });
 
