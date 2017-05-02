@@ -28,7 +28,7 @@
       rostopic_list.push(new rostopic_route());
       console.log(rostopic_list.length);
       $('#rostopic_fields').append(
-        "<div class=\"subsection\">\
+        "<div class=\"subsection\" id=\"topic_subsection_" + rosservice_num + "\">\
         <br>\
         <div class=\"form-group\">\
           <label for=\"sel1\">Computer</label>\
@@ -217,10 +217,10 @@
 
         if (obj.loop == "true") {
           obj.loop_init(num, sub_comp, sub_topic, pub_comp, pub_topic, msg_type);
-          console.log("Loop init.")
+          console.log("ROS Topic Loop Init.")
         } else {
           obj.normal_init(num, sub_comp, sub_topic, pub_comp, pub_topic, msg_type);
-          console.log("Normal init.")
+          console.log("ROS Topic Normal Init.")
         }
 
       }

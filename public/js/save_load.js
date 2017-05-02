@@ -25,6 +25,7 @@
 
       clear_computer_list();
       clear_rostopic_list();
+      clear_rosservice_list();
 
       var filename = "";
       var f = document.getElementById("config_file");
@@ -68,6 +69,23 @@
           rostopic_list[i].initialize(i+1, sub_comp, sub_topic, pub_comp, pub_topic, msg_type, checkbox);
         }
 
+        // do the same thing but with services
+        for (var i = 0; i < master_list.rosservice_list.length; i++) {
+          new_rosservice_field();
+          update_rosservice_dropdowns();
+          var sub_comp = master_list.rosservice_list[i]['from'];
+          var srvs_type = master_list.rosservice_list[i]['srvs_type'];
+          var pub_service = master_list.rosservice_list[i]['pub'];
+          var sub_service = master_list.rosservice_list[i]['sub'];
+          var pub_comp = master_list.rosservice_list[i]['to'];
+          document.getElementById('service_subscribe_computers_' + (i+1) ).value = sub_comp;
+          document.getElementById('sub_service_' + (i+1) ).value = sub_service;
+          document.getElementById('service_publish_computers_' + (i+1) ).value = pub_comp;
+          document.getElementById('pub_service_' + (i+1) ).value = pub_service;
+          document.getElementById('srvs_type_' + (i+1) ).value = srvs_type;
+          rosservice_list[i].initialize(i+1, sub_comp, sub_service, pub_comp, pub_service, srvs_type);
+        }
+
 
       });
 
@@ -102,8 +120,23 @@
           rostopic_string += ",";
         }
       }
-      rostopic_string += "]}";
+      rostopic_string += "],";
 
-      return computer_string + rostopic_string;
+      var rosservice_string = "\"rosservice_list\" : [";
+      for (var i = 0; i < rosservice_list.length; i++) {
+        rosservice_string += "{";
+        rosservice_string += "\"from\": " + JSON.stringify(rosservice_list[i].storage[1]) + ",";
+        rosservice_string += "\"sub\": " + JSON.stringify(rosservice_list[i].storage[2]) + ",";
+        rosservice_string += "\"to\": " +JSON.stringify(rosservice_list[i].storage[3]) + ",";
+        rosservice_string += "\"pub\": " + JSON.stringify(rosservice_list[i].storage[4]) + ",";
+        rosservice_string += "\"srvs_type\": " + JSON.stringify(rosservice_list[i].storage[5]);
+        rosservice_string += "}";
+        if (i < rosservice_list.length - 1) {
+          rosservice_string += ",";
+        }
+      }
+      rosservice_string += "]}";
+
+      return computer_string + rostopic_string + rosservice_string;
 
     }

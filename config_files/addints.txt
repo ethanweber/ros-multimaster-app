@@ -1,0 +1,1 @@
+{ "computer_list" : [{"name": "desktop","ip": "128.30.27.101"}],"rostopic_list" : [],"rosservice_list" : [{"from": "desktop","sub": "/add_two_ints_webpage","to": "desktop","pub": "/add_two_ints","srvs_type": "rospy_tutorials/AddTwoInts"}]}

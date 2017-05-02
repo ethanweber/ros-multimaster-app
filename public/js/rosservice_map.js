@@ -64,7 +64,7 @@ function new_rosservice_field() {
   rosservice_list.push(new rosservice_route());
   console.log(rosservice_list.length);
   $('#rosservice_fields').append(
-    "<div class=\"subsection\">\
+    "<div class=\"subsection\" id=\"service_subsection_" + rosservice_num + "\">\
     <br>\
     <div class=\"form-group\">\
       <label for=\"sel1\">Computer</label>\
@@ -89,6 +89,16 @@ function new_rosservice_field() {
     <div class=\"form-group\">\
       <label style=\"color:red\" id=\"service_status_" + rosservice_num + "\">STATUS</label>\
     </div>\
+    <!-- <div class=\"form-group\">\
+      <button class=\"btn btn-default\" id=\"service_delete_button_" + rosservice_num + "\">Remove</button>\
+    </div>\
+    <script>\
+    document.getElementById(\"service_delete_button_" + rosservice_num + "\").addEventListener(\"click\", function(event){\
+      event.preventDefault();\
+      console.log(\"going to deltete\");\
+      $(\"#service_subsection_" + rosservice_num + "\").remove();\
+    });\
+    </script> --> \
     <div>");
 }
 
@@ -173,13 +183,13 @@ function rosservice_route() {
 
     // Ethan is getting some problems here with an infinite loop
     obj.sub_service.advertise(function(req, resp) {
-      // resp.sum = req.a + req.b;
-      // console.log(resp.sum);
+      resp.sum = req.a + req.b;
+      console.log(resp.sum);
       // console.log("Heck yeah!!!");
-      obj.pub_service.callService(req, function(result) {
-        console.log('Result for service call on ' + obj.pub_service.name + ': ' + result.sum);
-        resp = result;
-      });
+      // obj.pub_service.callService(req, function(result) {
+      //   console.log('Result for service call on ' + obj.pub_service.name + ': ' + result.sum);
+      //   resp = result;
+      // });
       return true;
     });
 
@@ -199,7 +209,7 @@ function rosservice_route() {
     obj.num = num;
 
     obj.normal_init(num, sub_comp, sub_service, pub_comp, pub_service, srvs_type);
-    console.log("Normal init.")
+    console.log("ROS Service Init.")
 
   }
   return obj;

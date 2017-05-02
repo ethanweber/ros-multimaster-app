@@ -5,26 +5,6 @@
   display: inline-block;
 }
 
-
-/*#submit_fields {
-  position: relative;
-  left: 50%;
-}*/
-
-/*.rostopic {
-  position: relative;
-  right: 50px;
-}*/
-
-/*.thick {
-    display: block;
-    height: 10px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
-}*/
-
 .btn-default {
   margin: 2px;
 }
@@ -55,19 +35,13 @@ h4 {
 
 
 img.resize{
-   /*max-width:40%;
-   max-height:40%;*/
    height: 40px;
    width: 40px;
 }
 
-/*.message_group {
-  display: block;
-}*/
-
-.message_group h4 {
+/*.message_group h4 {
   display: inline-block;
-}
+}*/
 
 .rostopic_mapper {
   width: 50%;
@@ -86,11 +60,13 @@ img.resize{
 
 }
 
+.network_block {
+  margin: auto;
+  position: relative;
+  padding-bottom: 10px;
+}
+
 .file_block {
-  /*display: block;
-  text-align: center;
-  width: 45%;
-  margin: auto;*/
   width: 50%;
   background-color: #FFD700;
   border-style: solid;
@@ -98,14 +74,6 @@ img.resize{
   margin-top: 5px;
   float: left;
   margin-bottom: 5px;
-  /*margin-left: auto;
-  margin-right: auto;*/
-}
-
-.network_block {
-  /*display: inline-block;*/
-  margin: auto;
-  padding-bottom: 10px;
 }
 
 .computer_block {
@@ -116,6 +84,4 @@ img.resize{
   margin-top: 5px;
   margin-bottom: 5px;
   float: right;
-  /*margin-left: auto;
-  margin-right: auto;*/
 }
