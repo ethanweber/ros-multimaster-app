@@ -11,11 +11,9 @@ By using this simple web app, one can route one rostopic from one computer to an
 This web app is also used to act as a router for ROS Services. It is possible to call a ROS Service with a service name set in the app and have it reroute and call the service on a separate ROS Master computer.
 
 # How To Use
-```
 1. Install node.js and navigate to this directory. Run **node server.js** to use the application. Then navigate to the appropriate URL at **http://localhost:8080/**. Google Chrome was used when testing this application, but it should work in any browser.
 
 2. Start ROS Websockets on each computer. Run **roslaunch rodbridge_server rosbridge_websocket.launch** for each ROS Master used on the network.
-```
 
 # Developer Notes
 1. In an old version of rosbridge_suite, there is a 10ms delay when sending messages. It's important to use the newest version. I ran into this problem when testing with a XWAM robot with old software in the MERS lab.
