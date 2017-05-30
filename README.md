@@ -42,7 +42,7 @@ This is not yet functional, but it nearly complete.
 ```
 
 # Examples Usage
-![Alt text](images/gui.png?raw=true "Configurable Inputs")
+![Alt text](images/gui.PNG?raw=true "Configurable Inputs")
 
 # Developer Notes
 1. In an old version of rosbridge_suite, there is a 10ms delay when sending messages. It's important to use the newest version. I ran into this problem when testing with a XWAM robot with old software in the MERS lab.
