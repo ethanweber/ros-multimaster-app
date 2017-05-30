@@ -189,8 +189,9 @@ function rosservice_route() {
       obj.pub_service.callService(req, function(result) {
         console.log('Result for service call on ' + obj.pub_service.name + ': ' + result.sum);
         resp = result;
+        return true;
       });
-      return true;
+      // return true; //moved this up and then it worked
     });
 
   };
