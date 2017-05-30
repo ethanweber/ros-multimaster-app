@@ -42,7 +42,7 @@ This is not yet functional, but it nearly complete. I'm solving a nested Javascr
 #### Joy Topic Rerouting on Same Computer
 ![Alt text](images/joy.png?raw=true "Joy Topic Rerouting")
 #### Looped Topics on Same Computer
-![Alt text](images/fout_looped_topics.png?raw=true "Looped Topics")
+![Alt text](images/four_looped_topics.png?raw=true "Looped Topics")
 #### Topic Routing with Two ROS Masters
 ![Alt text](images/robot_topic_test.png?raw=true "Topic Routing with Two Robots")
 #### *ROS Service screenshots coming soon*
