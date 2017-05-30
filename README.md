@@ -27,16 +27,25 @@ This web app is also used to act as a router for ROS Services. It is possible to
 4. Make sure the enter the ROS msg type. It can be found by running rostopic info *name of topic* in the terminal.
 5. Check the *Loop Box* to make it a closed loop to have the topic the same on both computers.
 6. Click **"Start Topic Routing"** after entering the information. Your ROS topic should now be synchronized!
+7. To clear page data, must **refresh** the page.
 
 ### ROS Service Mapper Use
-This is not yet functional, but it nearly complete.
+This is not yet functional, but it nearly complete. I'm solving a nested Javascript callback issue.
 
 ### Saving and Uploading
-1. To save a working configuration, click **"Save File"** and enter a **.txt** filename.
+1. To save a working configuration, click **"Save File"** and enter a **.txt** filename. Files are saved in the **config_files** folder in the directory.
 2. To upload a previously saved file, click **"Choose File"** and then **"Upload File"** after choosing a file.
 
 # Examples Usage
-![Alt text](images/gui.png?raw=true "Configurable Inputs")
+#### Starting GUI
+![Alt text](images/gui.png?raw=true "Starting GUI")
+#### Joy Topic Rerouting on Same Computer
+![Alt text](images/joy.png?raw=true "Joy Topic Rerouting")
+#### Looped Topics on Same Computer
+![Alt text](images/fout_looped_topics.png?raw=true "Looped Topics")
+#### Topic Routing with Two ROS Masters
+![Alt text](images/robot_topic_test.png?raw=true "Topic Routing with Two Robots")
+#### *ROS Service screenshots coming soon*
 
 # Developer Notes
 1. In an old version of rosbridge_suite, there is a 10ms delay when sending messages. It's important to use the newest version. I ran into this problem when testing with a XWAM robot with old software in the MERS lab.
@@ -44,3 +53,6 @@ This is not yet functional, but it nearly complete.
 # Referenced URLs
 1. https://github.com/RobotWebTools/rosbridge_suite/issues/203
 2. https://github.com/RobotWebTools/rosbridge_suite/blob/d7138dc810aa77b8066a0a2d77195172221a1977/rosbridge_library/src/rosbridge_library/protocol.py#L247-L248
+
+
+*Created by Ethan Weber*
