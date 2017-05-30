@@ -21,25 +21,19 @@ This web app is also used to act as a router for ROS Services. It is possible to
 4. Click **"Add Computer"** for each computer used on the network. Enter a name for each computer and the local IP address for each used ROS Master. When finished adding each computer, click **"Submit"**.
 
 ### ROS Topic Mapper Use
-```
 1. Click **"Add Rostopic Route"** for each route desired.
 2. Click **"Refresh"** to update the "Computer" field dropdowns.
 3. Fill out the fields to route a topic name from one computer to another computer.
 4. Make sure the enter the ROS msg type. It can be found by running rostopic info *name of topic* in the terminal.
 5. Check the *Loop Box* to make it a closed loop to have the topic the same on both computers.
 6. Click **"Start Topic Routing"** after entering the information. Your ROS topic should now be synchronized!
-```
 
 ### ROS Service Mapper Use
-```
 This is not yet functional, but it nearly complete.
-```
 
 ### Saving and Uploading
-```
 1. To save a working configuration, click **"Save File"** and enter a **.txt** filename.
 2. To upload a previously saved file, click **"Choose File"** and then **"Upload File"** after choosing a file.
-```
 
 # Examples Usage
 ![Alt text](images/gui.png?raw=true "Configurable Inputs")
