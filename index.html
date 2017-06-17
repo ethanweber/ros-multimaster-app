@@ -1,28 +1,47 @@
 <!--  -->
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+  <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+
   <script type="text/javascript" src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
   <!-- <script type="text/javascript" src="http://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script> -->
   <script type="text/javascript" src="/roslibjs/build/roslib.min.js"></script>
   <!-- yaml library for saving and loading files -->
-<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-  <link rel="stylesheet" type="text/css" href="/css/custom.css">
+  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+  <!-- <link rel="stylesheet" type="text/css" href="/css/custom.css"> -->
+  <link id="pagestyle" rel="stylesheet" type="text/css" href="/css/classic-style.css" />
+
 </head>
+
 <body>
 
+  <div id='main-title'>
+    <div class='column left'></div>
+    <h2 id='main-title-text'>ROS Websocket Bridge</h2>
+    <div class='column'>
 
-<h2 id='main-title'>ROS Websocket Bridge</h2>
+      <div class="dropdown">
+        <button class="dropbtn">Style</button>
+        <div class="dropdown-content">
+          <a href="#" onclick="updateTheme('classic')">Classic</a>
+          <a href="#" onclick="updateTheme('dark')">Dark</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<div class="network_block">
+  <div class="network_block">
 
-  <div class="file_block section-block">
-    <h4 id="local_ip"></h6>
+    <div class="file_block section-block">
+      <h4 id="local_ip"></h6>
     <input id="config_file" type="file" class="btn btn-default"></input>
     <button id="load_data" class="btn btn-default" style="display: inline-block">Upload File</input>
     <button id="save_data" class="btn btn-default" style="display: inline-block">Save File</button>
@@ -40,47 +59,48 @@
 
   <div class="computer_block section-block">
     <h4>Computer Fields</h4>
-    <hr class="thick_line">
-    <form>
-      <div id="computer_fields"></div>
-      <button id="new_computer_field" class="btn btn-default"><img src='img/add.png'/>Add Computer</button><br>
-      <button id="submit_computer_fields" class="btn btn-default">Submit</button>
-    </form>
-  </div>
-<div>
+      <hr class="thick_line">
+      <form>
+        <div id="computer_fields"></div>
+        <button id="new_computer_field" class="btn btn-default"><img src='img/add.png'/>Add Computer</button><br>
+        <button id="submit_computer_fields" class="btn btn-default">Submit</button>
+      </form>
+    </div>
+    <div>
 
-<div class="message_group">
+      <div class="message_group">
 
-  <div class="rostopic_mapper section-block">
-    <h4>ROS Topic Mapper</h4>
-    <hr class="thick_line">
-    <form>
-      <div id="rostopic_fields"></div>
-      <button id="new_rostopic_field" class="btn btn-default">Add Rostopic Route</button><br>
-      <button id="refresh_rostopic_fields" class="btn btn-default">Refresh</button>
-    </form>
-    <hr class="thick_line">
-    <button id="start_topic_routing" class="btn btn-default">Start Topic Routing</button>
-  </div>
+        <div class="rostopic_mapper section-block">
+          <h4>ROS Topic Mapper</h4>
+          <hr class="thick_line">
+          <form>
+            <div id="rostopic_fields"></div>
+            <button id="new_rostopic_field" class="btn btn-default">Add Rostopic Route</button><br>
+            <button id="refresh_rostopic_fields" class="btn btn-default">Refresh</button>
+          </form>
+          <hr class="thick_line">
+          <button id="start_topic_routing" class="btn btn-default">Start Topic Routing</button>
+        </div>
 
-  <div class="rosservice_mapper section-block">
-    <h4>ROS Service Mapper</h4>
-    <hr class="thick_line">
-    <form>
-      <div id="rosservice_fields"></div>
-      <button id="new_rosservice_field" class="btn btn-default">Add Rosservice Route</button><br>
-      <button id="refresh_rosservice_fields" class="btn btn-default">Refresh</button>
-    </form>
-    <hr class="thick_line">
-    <button id="start_service_routing" class="btn btn-default">Start Service Routing</button>
-  </div>
+        <div class="rosservice_mapper section-block">
+          <h4>ROS Service Mapper</h4>
+          <hr class="thick_line">
+          <form>
+            <div id="rosservice_fields"></div>
+            <button id="new_rosservice_field" class="btn btn-default">Add Rosservice Route</button><br>
+            <button id="refresh_rosservice_fields" class="btn btn-default">Refresh</button>
+          </form>
+          <hr class="thick_line">
+          <button id="start_service_routing" class="btn btn-default">Start Service Routing</button>
+        </div>
 
-</div>
+      </div>
 
-<script type="text/javascript" src="/js/computer_fields.js"></script>
-<script type="text/javascript" src="/js/rostopic_map.js"></script>
-<script type="text/javascript" src="/js/rosservice_map.js"></script>
-<script type="text/javascript" src="/js/save_load.js"></script>
+      <script type="text/javascript" src="/js/computer_fields.js"></script>
+      <script type="text/javascript" src="/js/rostopic_map.js"></script>
+      <script type="text/javascript" src="/js/rosservice_map.js"></script>
+      <script type="text/javascript" src="/js/save_load.js"></script>
 
 </body>
+
 </html>

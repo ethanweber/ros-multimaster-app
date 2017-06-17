@@ -1,6 +1,13 @@
 // --------------------------------------------------------------------------------------
 // COMPUTER FIELDS
 // ----------------------------------------------------------------------
+
+function updateTheme(theme){
+  console.log('updating theme to '+theme);
+  document.getElementById("pagestyle").setAttribute("href", "/css/"+theme+"-style.css");
+
+}
+
     var computer_num = 0;
     var computer_list = [];
     document.getElementById("new_computer_field").addEventListener("click", function(event){
