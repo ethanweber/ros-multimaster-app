@@ -11,19 +11,19 @@
   <!-- <script type="text/javascript" src="http://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script> -->
   <script type="text/javascript" src="/roslibjs/build/roslib.min.js"></script>
   <!-- yaml library for saving and loading files -->
-
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
   <link rel="stylesheet" type="text/css" href="/css/custom.css">
 </head>
 <body>
 
 
-<h2>ROS Websocket Bridge</h2>
+<h2 id='main-title'>ROS Websocket Bridge</h2>
 
 <div class="network_block">
 
-  <div class="file_block">
+  <div class="file_block section-block">
     <h4 id="local_ip"></h6>
-    <input id="config_file" type="file" class="btn btn-default" style="display: inline-block"></input>
+    <input id="config_file" type="file" class="btn btn-default"></input>
     <button id="load_data" class="btn btn-default" style="display: inline-block">Upload File</input>
     <button id="save_data" class="btn btn-default" style="display: inline-block">Save File</button>
   </div>
@@ -38,12 +38,12 @@
     get_ip_address();
   </script>
 
-  <div class="computer_block">
+  <div class="computer_block section-block">
     <h4>Computer Fields</h4>
     <hr class="thick_line">
     <form>
       <div id="computer_fields"></div>
-      <button id="new_computer_field" class="btn btn-default">Add Computer</button><br>
+      <button id="new_computer_field" class="btn btn-default"><img src='img/add.png'/>Add Computer</button><br>
       <button id="submit_computer_fields" class="btn btn-default">Submit</button>
     </form>
   </div>
@@ -51,7 +51,7 @@
 
 <div class="message_group">
 
-  <div class="rostopic_mapper">
+  <div class="rostopic_mapper section-block">
     <h4>ROS Topic Mapper</h4>
     <hr class="thick_line">
     <form>
@@ -63,7 +63,7 @@
     <button id="start_topic_routing" class="btn btn-default">Start Topic Routing</button>
   </div>
 
-  <div class="rosservice_mapper">
+  <div class="rosservice_mapper section-block">
     <h4>ROS Service Mapper</h4>
     <hr class="thick_line">
     <form>
