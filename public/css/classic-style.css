@@ -1,3 +1,24 @@
+#input_container {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  height: 70%;
+}
+
+#input {
+  height: 20px;
+  margin: 0;
+  padding-left: 30px;
+}
+
+#input_img {
+  position: absolute;
+  bottom: 8px;
+  left: 10px;
+  width: 10px;
+  height: 10px;
+}
+
 .form-group {
   position: relative;
   left: 0px;
@@ -63,6 +84,8 @@ img.resize {
   margin: auto;
   position: relative;
   padding-bottom: 10px;
+  float: left;
+  width: 50%;
 }
 
 .file_block {
@@ -76,13 +99,19 @@ img.resize {
 }
 
 .computer_block {
-  width: 50%;
+  width: 100%;
   background-color: #00FFFF;
   border-style: solid;
   text-align: center;
-  margin-top: 5px;
+  /*margin-top: 5px;*/
   margin-bottom: 5px;
-  float: right;
+  /*float: right;*/
+}
+
+.console_block {
+  text-align: center;
+  height: 400px;
+  background-color: #FFD700;
 }
 
 #new_computer_field img {
@@ -96,18 +125,12 @@ img.resize {
 /* Dropdown Button */
 
 .dropbtn {
-  /* background-color: #4CAF50; */
-  /*color: white;*/
-  /* padding: 16px; */
-  font-size: 20px;
+  font-size: 16px;
   border: none;
   cursor: pointer;
   position: relative;
   background-color: rgba(0, 0, 0, 0);
   line-height: 20px;
-  /* border-style: solid; */
-  /* top: 24px; */
-  font-style: italic;
 }
 
 
@@ -123,7 +146,7 @@ img.resize {
   /*min-width: 120px;*/
   border-style: solid;
   text-align: center;
-  border-width: 1px;
+  border-width: 2px;
   width: 35%;
 }
 
@@ -193,4 +216,17 @@ img.resize {
   width: 25%;
   height: 50px;
   margin: 30px 0px 0px;
+}
+
+#main-title .column.left {
+  padding-left: 20px
+}
+
+#main-title .column img {
+  height: 70%;
+  border: black;
+  border-style: solid;
+  border-width: 2px;
+  padding: 3px;
+  margin: 0 5px;
 }

@@ -41,7 +41,7 @@
         console.log(master_list.computer_list);
 
         for (var i = 0; i < master_list.computer_list.length; i++ ) {
-          new_computer_field();
+          var num = new_computer_field();
           var name = master_list.computer_list[i]['name'];
           var ip = master_list.computer_list[i]['ip'];
           var comp_id = 'computer_' + (i+1);

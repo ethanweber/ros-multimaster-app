@@ -27,6 +27,19 @@ body {
   margin: 30px 0px 0px;
 }
 
+#main-title .column.left {
+  padding-left: 20px
+}
+
+#main-title .column img {
+  height: 70%;
+  border: white;
+  border-style: solid;
+  border-width: 2px;
+  padding: 3px;
+  margin: 0 5px;
+}
+
 #style-select {
   float: right;
   position: relative;
@@ -38,18 +51,13 @@ body {
 /* Dropdown Button */
 
 .dropbtn {
-  /* background-color: #4CAF50; */
   color: white;
-  /* padding: 16px; */
-  font-size: 20px;
+  font-size: 16px;
   border: none;
   cursor: pointer;
   position: relative;
   background-color: rgba(0, 0, 0, 0);
   line-height: 20px;
-  /* border-style: solid; */
-  /* top: 24px; */
-  font-style: italic;
 }
 
 
@@ -65,7 +73,7 @@ body {
   /*min-width: 120px;*/
   border-style: solid;
   text-align: center;
-  border-width: 1px;
+  border-width: 2px;
   width: 35%;
 }
 
