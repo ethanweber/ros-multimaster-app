@@ -61,6 +61,23 @@ body {
 }
 
 
+/* The container <div> - needed to position the dropdown content */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  float: right;
+  height: 30px;
+  line-height: 30px;
+  margin-right: 10%;
+  /*min-width: 120px;*/
+  border-style: solid;
+  text-align: center;
+  border-width: 2px;
+  width: 35%;
+}
+
+
 /* Dropdown Content (Hidden by Default) */
 
 .dropdown-content {
@@ -92,6 +109,13 @@ body {
 
 .dropdown-content a:hover {
   background-color: #f1f1f1
+}
+
+
+/* Show the dropdown menu on hover */
+
+.dropdown:hover .dropdown-content {
+  display: block;
 }
 
 
@@ -150,19 +174,11 @@ body {
 }
 
 hr.thick_line {
-  display: block;
-  /*height: 10px;*/
-  border: 0;
-  /*border-top: 5px solid #808080;*/
-  /*margin: 1em 0;*/
-  padding: 0;
+  display: none;
 }
 
 .subsection {
   background-color: #DCDCDC;
-  padding-bottom: 5px;
-  background-clip: content-box;
-  margin: 0 15px;
 }
 
 h2 {
@@ -186,15 +202,23 @@ img.resize {
 
 .rostopic_mapper {
   width: 50%;
-  float: left;
+  /*float: left;*/
   background-color: #FF7F50;
   /*border-style: solid;*/
   text-align: center;
 }
 
+.rostopic_mapper form {
+  display: inline-table;
+}
+
+.rosservice_mapper form {
+  display: inline-table;
+}
+
 .rosservice_mapper {
   width: 50%;
-  float: right;
+  /*float: right;*/
   background-color: #7FFF00;
   /*border-style: solid;*/
   text-align: center;
@@ -212,21 +236,26 @@ img.resize {
   /*border-style: solid;*/
   text-align: center;
   margin-top: 5px;
-  float: left;
+  /*float: left;*/
   margin-bottom: 5px;
 }
 
 .computer_block {
+  width: 50%;
   background-color: #00FFFF;
+  /*border-style: solid;*/
   text-align: center;
   margin-top: 5px;
   margin-bottom: 5px;
+  /*float: right;*/
 }
 
 .section-block {
+  width: calc(100% - 10px);
   margin: 5px;
   border-radius: 15px;
   padding-bottom: 10px;
+  border-style: none;
 }
 
 #config_file {

@@ -1,0 +1,1 @@
+{ "computer_list" : [{"name": "hello","ip": "678"}],"rostopic_list" : [{"from": "hello","sub": "/cmd_vel","to": "hello","pub": "/cmd_vel2","msg_type": "geometry_msgs/Twist","checked": "false"}],"rosservice_list" : []}

@@ -108,22 +108,21 @@ document.getElementById("refresh_rosservice_fields").addEventListener("click", f
 });
 function update_rosservice_dropdowns() {
   for (var i = 0; i < rosservice_list.length; i++) {
-    var current_sub_comp = document.getElementById('service_subscribe_computers_' + (i+1) ).value;
-    var current_pub_comp = document.getElementById('service_publish_computers_' + (i+1) ).value;
     var sub_comp_div = document.getElementById('service_subscribe_computers_' + (i+1) );
     var pub_comp_div = document.getElementById('service_publish_computers_' + (i+1) );
+    var current_sub_comp = sub_comp_div.value;
+    var current_pub_comp = pub_comp_div.value;
     sub_comp_div.innerHTML = "";
     pub_comp_div.innerHTML = "";
-    for (var j = 0; j < computer_list.length; j++) {
-      var name = computer_list[j].name;
-      if (name != "") {
-        sub_comp_div.innerHTML += "<option>" + name + "</option>";
-        pub_comp_div.innerHTML += "<option>" + name + "</option>";
-      }
-      document.getElementById('service_subscribe_computers_' + (i+1) ).value = name;
+
+    for (computer_ip in computer_dict) {
+      computer_name = computer_dict[computer_ip].name;
+      sub_comp_div.innerHTML += "<option>" + computer_name + "</option>";
+      pub_comp_div.innerHTML += "<option>" + computer_name + "</option>";
     }
-    document.getElementById('service_subscribe_computers_' + (i+1) ).value = current_sub_comp;
-    document.getElementById('service_publish_computers_' + (i+1) ).value = current_pub_comp;
+
+    sub_comp_div.value = current_sub_comp;
+    pub_comp_div.value = current_pub_comp;
   }
 }
 function rosservice_route() {
@@ -152,16 +151,18 @@ function rosservice_route() {
     // get the correct computers
     var sub_computer;
     var pub_computer;
-    for (var i = 0; i < computer_list.length; i++ ) {
-      if (sub_comp == computer_list[i].name) {
-        sub_computer = computer_list[i].ros;
-        console.log(sub_computer);
+
+    for (ip_address in computer_dict) {
+      computer_obj = computer_dict[ip_address];
+      if (computer_obj.name == sub_comp) {
+        sub_computer = computer_obj.ros;
+        console.log('sub_computer:')
+        console.log(sub_computer)
       }
-    }
-    for (var i = 0; i < computer_list.length; i++ ) {
-      if (pub_comp == computer_list[i].name) {
-        pub_computer = computer_list[i].ros;
-        console.log(pub_computer);
+      if (computer_obj.name == pub_comp) {
+        pub_computer = computer_obj.ros;
+        console.log('pub_computer:')
+        console.log(pub_computer)
       }
     }
 

@@ -29,9 +29,10 @@ hr.thick_line {
 
 .subsection {
   background-color: #DCDCDC;
-  background-clip: content-box;
-  margin: 0 15px 5px;
-  padding: 0px;
+}
+
+.submit-computer-button {
+  background: white;
 }
 
 .console_block {
@@ -39,10 +40,10 @@ hr.thick_line {
 }
 
 
-/* Dropdown Button */
+/* Dropdown Content (Hidden by Default) */
 
-.dropbtn {
-  background-color: rgba(0, 0, 0, 0);
+.dropdown-content {
+  background-color: #f9f9f9;
 }
 
 

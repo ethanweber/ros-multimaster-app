@@ -4,61 +4,14 @@
 
 function updateTheme(theme) {
   console.log('updating theme to ' + theme);
-  document.getElementById("pagestyle").setAttribute("href", "/css/" + theme + "-style.css");
-  document.getElementById("save-config").src = "img/" + theme + "-save.png";
-  document.getElementById("upload-config").src = "img/" + theme + "-upload.png";
-  document.getElementById("config-menu").src = "img/" + theme + "-config.png";
+  document.getElementById("selected-theme").setAttribute("href", "/css/" + theme + "-theme.css");
+  document.getElementById("save-config").src = "img/" + theme + "/save.png";
+  document.getElementById("upload-config").src = "img/" + theme + "/upload.png";
+  document.getElementById("config-menu").src = "img/" + theme + "/config.png";
 }
 
-$('#upload-config').click(function() {
-  $("#upload-input").click();
-});
+updateTheme('dark');
 
-$("#upload-input").change(function() {
-  alert('changed!');
-  console.log($("upload-input"));
-
-  var f = document.getElementById("upload-input");
-  filename = f.files[0]['name'];
-
-  var master_list;
-  var parameters = {
-    file: filename
-  };
-  $.get('/load', parameters, function(data) {
-
-    master_list = data;
-
-    console.log(master_list);
-    console.log(master_list.computer_list);
-
-    loadComputers(master_list.computer_list)
-  })
-});
-
-function loadComputers(computers) {
-  var computer,
-    num,
-    name,
-    ip,
-    comp_id,
-    ip_id;
-
-  for (i in computers) {
-    computer = computers[i]
-    num = new_computer_field();
-    name = computer['name'];
-    ip = computer['ip'];
-    comp_id = 'computer_' + num;
-    document.getElementById(comp_id).value = name;
-    ip_id = 'ip_' + num;
-    document.getElementById(ip_id).value = ip;
-    // computer_list[i].initialize(name, ip);
-    addToComputerList(name, ip_id);
-
-  }
-
-}
 
 // --------------------------------------------------------------------------------------
 // COMPUTER FIELDS
@@ -75,9 +28,7 @@ document.getElementById("new_computer_field").addEventListener("click", function
 
 function new_computer_field() {
   computer_num += 1;
-  // computer_list.push(new computer());
-  // console.log(computer_list);
-  // console.log(computer_list.length);
+
   $('#computer_fields').append("<div class=\"subsection\" id=\"computer-section-" + computer_num + "\"->\
         <div class=\"form-group\">\
           <label for=\"email\">Computer " + computer_num + ":</label>\
@@ -87,20 +38,39 @@ function new_computer_field() {
           <label for=\"pwd\">IP Address " + computer_num + ":</label>\
           <input type=\"text\" class=\"form-control ip-input\" id=\"ip_" + computer_num + "\" placeholder=\"Enter IP\">\
         </div>\
+        <img src=\"img/classic/link.png\" class=\"submit-computer-button\" id=\"computer-submit-" + computer_num + "\"/>\
         </div>");
 
+  var computer_section = document.getElementById("computer-section-" + computer_num)
   document.getElementById("computer_" + computer_num).focus();
+  document.getElementById("computer-submit-" + computer_num).addEventListener("click", function(event) {
+    event.preventDefault();
+    submit_computer(computer_section);
+  });
 
-  return computer_num;
+  return [computer_num, computer_section];
 }
 
-document.getElementById("submit_computer_fields").addEventListener("click", function(event) {
-  event.preventDefault();
-  update_fields();
-});
+function submit_computer(computer_frame) {
 
-function update_fields() {
+  console.log(computer_frame);
 
+  var computer_input_side = computer_frame.children[0];
+  var name = computer_input_side.children[1].value;
+  if (name == "" || name == null) {
+    console.log('no computer name given');
+    computer_frame.remove();
+    computer_num -= 1;
+    check_for_other_empty_computers();
+  } else {
+    var ip_input_side = computer_frame.children[1];
+    var ip_id = ip_input_side.children[1].value;
+    addToComputerList(name, ip_id, computer_frame);
+  }
+  update_rostopic_dropdowns();
+}
+
+function check_for_other_empty_computers() {
   var computers = Array.prototype.slice.call($('#computer_fields').children());
 
   var computer_input_side = " ";
@@ -109,59 +79,68 @@ function update_fields() {
   var ip_id = " ";
 
   for (i in computers) {
+    var computer_frame = computers[i]
     computer_input_side = computers[i].children[0];
     name = computer_input_side.children[1].value;
     if (name == "" || name == null) {
       console.log('no computer name given');
       computers[i].remove();
       computer_num -= 1;
-    } else {
-      ip_input_side = computers[i].children[1];
-      ip_id = ip_input_side.children[1].value;
-      addToComputerList(name, ip_id);
     }
-    // console.log('got computer: ' + name + ' with ip: ' + ip_id);
   }
-  // for (var i = 0; i < computer_list.length; i++) {
-  //   var comp_id = 'computer_' + (i+1);
-  //   var name = document.getElementById(comp_id).value;
-  //   var ip_id = 'ip_' + (i+1);
-  //   var ip = document.getElementById(ip_id).value;
-  //   if(name == "" || name== null){
-  //     document.getElementById("computer-section-"+(i+1)).remove();
-  //   }
-  //   else{
-  //     computer_list[i].initialize(name, ip);
-  //   }
-  // }
-  // console.log(computer_list);
 }
 
-function addToComputerList(name, ip_address) {
+function addToComputerList(name, ip_address, computer_frame) {
 
   if (ip_address in computer_dict) {
     console.log('ip address: ' + ip_address + ' already registered');
+    if (computer_dict[ip_address].name != name) {
+      computer_dict[ip_address].name = name;
+      console.log('updated name of computer at ' + ip_address + ' to be ' + name);
+    }
   } else {
     console.log('adding computer ' + name + ' with ip address ' + ip_address);
-    var ros = new ROSLIB.Ros({
-      url: 'ws://' + ip_address + ':9090'
-    })
+
+    var ros = new ROSLIB.Ros();
+    ros.computer_frame = ip_address;
+    // If there is an error on the backend, an 'error' emit will be emitted.
     ros.on('error', function(error) {
+      // document.getElementById('connecting').style.display = 'none';
+      // document.getElementById('connected').style.display = 'none';
+      // document.getElementById('closed').style.display = 'none';
+      // document.getElementById('error').style.display = 'inline';
+      computer_frame.style.border = "3px solid red";
       console.log("Error with roslib instance: ")
       console.log(error);
     });
+    // Find out exactly when we made a connection.
     ros.on('connection', function() {
       console.log('Connection made!');
+      // document.getElementById('connecting').style.display = 'none';
+      // document.getElementById('error').style.display = 'none';
+      // document.getElementById('closed').style.display = 'none';
+      // document.getElementById('connected').style.display = 'inline';
     });
+    ros.on('close', function() {
+      console.log('Connection closed.');
+      // document.getElementById('connecting').style.display = 'none';
+      // document.getElementById('connected').style.display = 'none';
+      // document.getElementById('closed').style.display = 'inline';
+    });
+
+    // Create a connection to the rosbridge WebSocket server.
+    ros.connect('ws://' + ip_address + ':9090');
 
     computer_dict[ip_address] = {
       'name': name,
+      'frame': computer_frame,
       'ros': ros
     }
 
   }
 }
 
+/*
 function computer() {
   var obj = {};
   obj.name = "";
@@ -176,11 +155,11 @@ function computer() {
   }
   return obj;
 }
+*/
 
 function clear_computer_list() {
   computer_list = [];
   computer_dict = {};
   computer_num = 0;
   document.getElementById("computer_fields").innerHTML = "";
-
 }

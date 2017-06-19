@@ -17,7 +17,9 @@
   <!-- yaml library for saving and loading files -->
   <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
   <!-- <link rel="stylesheet" type="text/css" href="/css/custom.css"> -->
-  <link id="pagestyle" rel="stylesheet" type="text/css" href="/css/classic-style.css" />
+  <link rel="stylesheet" type="text/css" href="/css/main.css" />
+  <!-- <link id="selected-theme" rel="stylesheet" type="text/css" href="/css/classic-theme.css" /> -->
+  <link id="selected-theme" rel="stylesheet" type="text/css" href="/css/dark-theme.css" />
 
 </head>
 
@@ -27,19 +29,15 @@
     <div class='column left'>
       <input type="file" id="upload-input" name="pic" accept="text/plain" style="display:none">
 
-
-      <!-- <div id="input_container"> -->
-      <img id='upload-config' src='img/classic-upload.png' />
-      <!-- </div> -->
-
-      <img id='save-config' src='img/classic-save.png' />
-      <img id='config-menu' src='img/classic-config.png' />
+      <img id='upload-config' src='img/classic/upload.png' />
+      <img id='save-config' src='img/classic/save.png' />
+      <img id='config-menu' src='img/classic/config.png' />
 
     </div>
     <h2 id='main-title-text'>ROS Websocket Bridge</h2>
     <div class='column'>
       <div class="dropdown">
-        <button class="dropbtn">Style</button>
+        <button class="dropbtn">Theme</button>
         <div class="dropdown-content">
           <a href="#" onclick="updateTheme('classic')">Classic</a>
           <a href="#" onclick="updateTheme('dark')">Dark</a>
@@ -48,7 +46,7 @@
     </div>
   </div>
 
-  <div class="network_block">
+  <div class="network_block half-page">
 
     <!-- <div class="file_block section-block">
       <h4 id="local_ip"></h6>
@@ -72,31 +70,33 @@
       <hr class="thick_line">
       <form>
         <div id="computer_fields"></div>
-        <button id="new_computer_field" class="btn btn-default"><img src='img/add.png'/>Add Computer</button><br>
-        <button id="submit_computer_fields" class="btn btn-default">Submit</button>
+        <button id="new_computer_field" class="btn btn-default"><img src='img/add.png'/>Add Computer</button>
+        <!-- <br> -->
+        <!-- <button id="submit_computer_fields" class="btn btn-default">Submit</button> -->
       </form>
     </div>
 
     <div class="console_block section-block">
       <h4>Console</h4>
       <hr class="thick_line">
-      <form>
-        <!-- <div id="computer_fields"></div> -->
-        <!-- <button id="new_computer_field" class="btn btn-default"><img src='img/add.png'/>Add Computer</button><br> -->
-        <!-- <button id="submit_computer_fields" class="btn btn-default">Submit</button> -->
-      </form>
+      <!-- <form> -->
+      <h5 id='intro-console-text'>New messages here...</h5>
+      <!-- <div id="computer_fields"></div> -->
+      <!-- <button id="new_computer_field" class="btn btn-default"><img src='img/add.png'/>Add Computer</button><br> -->
+      <!-- <button id="submit_computer_fields" class="btn btn-default">Submit</button> -->
+      <!-- </form> -->
     </div>
   </div>
 
-  <div class="message_group">
+  <div class="message_block half-page">
 
     <div class="rostopic_mapper section-block">
       <h4>ROS Topic Mapper</h4>
       <hr class="thick_line">
       <form>
         <div id="rostopic_fields"></div>
-        <button id="new_rostopic_field" class="btn btn-default">Add Rostopic Route</button><br>
-        <button id="refresh_rostopic_fields" class="btn btn-default">Refresh</button>
+        <button id="new_rostopic_field" class="btn btn-default"><img src='img/add.png'/>Add Rostopic Route</button><br>
+        <!-- <button id="refresh_rostopic_fields" class="btn btn-default">Refresh</button> -->
       </form>
       <hr class="thick_line">
       <button id="start_topic_routing" class="btn btn-default">Start Topic Routing</button>
@@ -107,8 +107,8 @@
       <hr class="thick_line">
       <form>
         <div id="rosservice_fields"></div>
-        <button id="new_rosservice_field" class="btn btn-default">Add Rosservice Route</button><br>
-        <button id="refresh_rosservice_fields" class="btn btn-default">Refresh</button>
+        <button id="new_rosservice_field" class="btn btn-default"><img src='img/add.png'/> Add Rosservice Route</button><br>
+        <!-- <button id="refresh_rosservice_fields" class="btn btn-default">Refresh</button> -->
       </form>
       <hr class="thick_line">
       <button id="start_service_routing" class="btn btn-default">Start Service Routing</button>

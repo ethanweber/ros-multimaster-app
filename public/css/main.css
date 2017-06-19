@@ -1,0 +1,300 @@
+#input_container {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  height: 70%;
+}
+
+#input {
+  height: 20px;
+  margin: 0;
+  padding-left: 30px;
+}
+
+#input_img {
+  position: absolute;
+  bottom: 8px;
+  left: 10px;
+  width: 10px;
+  height: 10px;
+}
+
+.form-group {
+  position: relative;
+  left: 0px;
+  padding: 5px;
+  display: inline-block;
+}
+
+.btn-default {
+  margin: 2px;
+}
+
+hr.thick_line {
+  display: block;
+  height: 10px;
+  border: 0;
+  border-top: 5px solid #808080;
+  margin: 1em 0;
+  padding: 0;
+}
+
+.subsection {
+  background-color: #DCDCDC;
+  padding-bottom: 5px;
+  background-clip: content-box;
+}
+
+.message_block {
+  float: right;
+}
+
+.half-page {
+  width: 50%;
+}
+
+.section-block {
+  width: 100%;
+  padding-bottom: 5px;
+}
+
+.section-block button {
+  height: 36px;
+}
+
+h2 {
+  font-weight: bold;
+  text-align: center;
+}
+
+h4 {
+  font-weight: bold;
+  margin: 0px;
+  padding: 5px;
+}
+
+img.resize {
+  height: 40px;
+  width: 40px;
+}
+
+
+/*.message_group h4 {
+  display: inline-block;
+}*/
+
+.rostopic_mapper {
+  /*width: 50%;*/
+  /*float: left;*/
+  background-color: #FF7F50;
+  border-style: solid;
+  text-align: center;
+}
+
+.rosservice_mapper {
+  /*width: 50%;*/
+  /*float: right;*/
+  background-color: #7FFF00;
+  border-style: solid;
+  text-align: center;
+}
+
+.network_block {
+  margin: auto;
+  position: relative;
+  padding-bottom: 10px;
+  float: left;
+  width: 50%;
+}
+
+.file_block {
+  width: 50%;
+  background-color: #FFD700;
+  border-style: solid;
+  text-align: center;
+  margin-top: 5px;
+  /*float: left;*/
+  margin-bottom: 5px;
+}
+
+.computer_block {
+  width: 100%;
+  background-color: #00FFFF;
+  border-style: solid;
+  text-align: center;
+  /*margin-top: 5px;*/
+  /*margin-bottom: 5px;*/
+  /*float: right;*/
+}
+
+.subsection {
+  background-color: #DCDCDC;
+  background-clip: content-box;
+  margin: 0 15px 5px;
+  padding: 0px;
+}
+
+.submit-computer-button {
+  height: 28px;
+  background: white;
+  padding: 4px;
+  line-height: 70px;
+}
+
+
+/*.section-block {
+  width: calc(50% - 10px);
+  margin: 5px;
+  border-radius: 15px;
+  padding-bottom: 10px;
+}*/
+
+.console_block {
+  text-align: center;
+  /*height: 400px;*/
+  background-color: #FFD700;
+  border-style: solid;
+}
+
+.console_block h5 {
+  height: 36px;
+  margin: 2px;
+  line-height: 36px;
+}
+
+
+/*.computer_block button {
+  line-height: 20px;
+  margin: 5px;
+}*/
+
+#new_computer_field img {
+  width: 20px;
+  position: relative;
+  left: -5px;
+  top: -1px;
+}
+
+#new_rostopic_field img {
+  width: 20px;
+  position: relative;
+  left: -5px;
+  top: -1px;
+}
+
+#new_rosservice_field img {
+  width: 20px;
+  position: relative;
+  left: -5px;
+  top: -1px;
+}
+
+
+/* Dropdown Button */
+
+.dropbtn {
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+  line-height: 20px;
+}
+
+
+/* The container <div> - needed to position the dropdown content */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  float: right;
+  height: 30px;
+  line-height: 30px;
+  margin-right: 10%;
+  /*min-width: 120px;*/
+  border-style: solid;
+  text-align: center;
+  border-width: 2px;
+  width: 35%;
+}
+
+
+/* Dropdown Content (Hidden by Default) */
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  /*min-width: 120px;*/
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  /* top: 94%; */
+  line-height: 20px;
+  width: 100%;
+  /* left: -60%; */
+  text-align: center;
+}
+
+
+/* Links inside the dropdown */
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+
+/* Change color of dropdown links on hover */
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1
+}
+
+
+/* Show the dropdown menu on hover */
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+
+.dropdown:hover .dropdown {
+  background-color: #B3E5FC;
+}
+
+#main-title {
+  /*background: #3e464c;*/
+  /*color: white;*/
+  /*line-height: 52px;*/
+  width: 100%;
+  display: inline-flex;
+}
+
+#main-title-text {
+  line-height: 50px;
+  width: 50%;
+}
+
+#main-title .column {
+  /*line-height: 50px;*/
+  width: 25%;
+  height: 50px;
+  margin: 30px 0px 0px;
+}
+
+#main-title .column.left {
+  padding-left: 20px
+}
+
+#main-title .column img {
+  height: 70%;
+  border: black;
+  border-style: solid;
+  border-width: 2px;
+  padding: 3px;
+  margin: 0 5px;
+}
