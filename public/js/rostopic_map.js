@@ -23,6 +23,24 @@ document.getElementById("new_rostopic_field").addEventListener("click", function
   new_rostopic_field();
 });
 
+var list_of_topics = [];
+var list_of_msg_types = [];
+
+function update_list_of_topics() {
+  for (computer in computer_dict) {
+    // console.log(computer_dict[computer]);
+    computer_dict[computer].ros.getTopics(function(topics) {
+      // console.log(topics);
+      for (var i = 0; i < topics.topics.length; i++) {
+        list_of_topics.push(topics.topics[i]);
+      }
+      for (var i = 0; i < topics.types.length; i++) {
+        list_of_msg_types.push(topics.types[i]);
+      }
+    });
+  }
+}
+
 function new_rostopic_field() {
   rostopic_num += 1;
   rostopic_list.push(new rostopic_route());
@@ -56,6 +74,11 @@ function new_rostopic_field() {
         </div>\
         <div>");
   update_rostopic_dropdowns();
+
+  $("#sub_topic_" + rostopic_num).autocomplete({source: list_of_topics});
+  $("#pub_topic_" + rostopic_num).autocomplete({source: list_of_topics});
+  $("#msg_type_" + rostopic_num).autocomplete({source: list_of_msg_types});
+
 }
 
 // document.getElementById("refresh_rostopic_fields").addEventListener("click", function(event) {

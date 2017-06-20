@@ -102,10 +102,11 @@ function new_rosservice_field() {
     <div>");
 }
 
-document.getElementById("refresh_rosservice_fields").addEventListener("click", function(event){
-  event.preventDefault();
-  update_rosservice_dropdowns();
-});
+// document.getElementById("refresh_rosservice_fields").addEventListener("click", function(event){
+//   event.preventDefault();
+//   update_rosservice_dropdowns();
+// });
+
 function update_rosservice_dropdowns() {
   for (var i = 0; i < rosservice_list.length; i++) {
     var sub_comp_div = document.getElementById('service_subscribe_computers_' + (i+1) );

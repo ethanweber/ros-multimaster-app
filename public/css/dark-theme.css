@@ -219,7 +219,7 @@ img.resize {
 .rosservice_mapper {
   width: 50%;
   /*float: right;*/
-  background-color: #7FFF00;
+  background-color: #A3FF48;
   /*border-style: solid;*/
   text-align: center;
 }
@@ -242,7 +242,7 @@ img.resize {
 
 .computer_block {
   width: 50%;
-  background-color: #00FFFF;
+  background-color: #7DF2F2;
   /*border-style: solid;*/
   text-align: center;
   margin-top: 5px;

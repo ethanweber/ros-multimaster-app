@@ -1,3 +1,42 @@
+/*Console message styling*/
+
+.alert {
+  /*padding: 20px;*/
+  background-color: #f44336;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.6s;
+  width: calc(100% - 30px);
+  margin: 10px 15px;
+}
+
+.alert.success {
+  background-color: #4CAF50;
+}
+
+.alert.info {
+  background-color: #2196F3;
+}
+
+.alert.warning {
+  background-color: #ff9800;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
 #input_container {
   position: relative;
   padding: 0;
@@ -295,6 +334,12 @@ img.resize {
   border: black;
   border-style: solid;
   border-width: 2px;
-  padding: 3px;
+  padding: 4px;
   margin: 0 5px;
+  cursor: pointer;
+}
+
+#main-title .column img:hover {
+  background-color: grey;
+  padding: 2px;
 }

@@ -1,19 +1,4 @@
 // --------------------------------------------------------------------------------------
-// PAGE THEME
-// ----------------------------------------------------------------------
-
-function updateTheme(theme) {
-  console.log('updating theme to ' + theme);
-  document.getElementById("selected-theme").setAttribute("href", "/css/" + theme + "-theme.css");
-  document.getElementById("save-config").src = "img/" + theme + "/save.png";
-  document.getElementById("upload-config").src = "img/" + theme + "/upload.png";
-  document.getElementById("config-menu").src = "img/" + theme + "/config.png";
-}
-
-updateTheme('dark');
-
-
-// --------------------------------------------------------------------------------------
 // COMPUTER FIELDS
 // ----------------------------------------------------------------------
 
@@ -68,6 +53,7 @@ function submit_computer(computer_frame) {
     addToComputerList(name, ip_id, computer_frame);
   }
   update_rostopic_dropdowns();
+  update_list_of_topics();
 }
 
 function check_for_other_empty_computers() {
@@ -109,13 +95,15 @@ function addToComputerList(name, ip_address, computer_frame) {
       // document.getElementById('connected').style.display = 'none';
       // document.getElementById('closed').style.display = 'none';
       // document.getElementById('error').style.display = 'inline';
-      computer_frame.style.border = "3px solid red";
+      computer_frame.style.border = "5px solid red";
       console.log("Error with roslib instance: ")
       console.log(error);
     });
     // Find out exactly when we made a connection.
     ros.on('connection', function() {
       console.log('Connection made!');
+      computer_frame.style.border = "5px solid green";
+
       // document.getElementById('connecting').style.display = 'none';
       // document.getElementById('error').style.display = 'none';
       // document.getElementById('closed').style.display = 'none';
