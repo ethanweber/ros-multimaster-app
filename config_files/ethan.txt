@@ -1,1 +1,1 @@
-{ "computer_list" : [{"name": "testing","ip": "vaasdf"},{"name": "asdf","ip": "456"}],"rostopic_list" : [{"from": "testing","sub": "asdg","to": "asdf","pub": "bafgb","msg_type": "536","checked": "true"}]}
+{ "computer_list" : [{"name": "testing","ip": "vaasdf"},{"name": "asdf","ip": "456"}],"rostopic_list" : [{"from": "testing","sub": "asdg","to": "asdf","pub": "bafgb","msg_type": "536","loop": "true"}]}

@@ -1,1 +1,1 @@
-{ "computer_list" : [{"name": "atrv","ip": "128.30.9.203"},{"name": "desktop","ip": "128.30.24.238"}],"rostopic_list" : [{"from": "desktop","sub": "/cmd_vel","to": "atrv","pub": "/cmd_vel","msg_type": "geometry_msgs/Twist","checked": "false"}]}
+{ "computer_list" : [{"name": "atrv","ip": "128.30.9.203"},{"name": "desktop","ip": "128.30.24.238"}],"rostopic_list" : [{"from": "desktop","sub": "/cmd_vel","to": "atrv","pub": "/cmd_vel","msg_type": "geometry_msgs/Twist","loop": "false"}]}
