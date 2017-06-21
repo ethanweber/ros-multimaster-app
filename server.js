@@ -16,10 +16,31 @@ app.use(express.static('public'));
 var server = require('http').createServer();
 var io = require('socket.io')(server);
 io.on('connection', function(client){
-  client.on('event', function(data){});
+  client.on('update', function(data){
+    console.log('got data from client');
+    console.log(data);
+  });
+  client.on('request', function(data){
+    console.log('got request from client');
+    console.log(data);
+    client.emit('update',ros_mm_obj);
+  });
   client.on('disconnect', function(){});
 });
 server.listen(3000);
+
+// Main ROS Multimaster object that gets passed to the server to show updates from the user
+// and that is compared to the same structured object from the server to show changes
+var ros_mm_obj = {
+  //structure of ros websocket conections
+  // key = ip_address of the ros websocket masters
+  // values = 'computer_name'...
+  'computers':{},
+  //structure for ros topics
+  'topics':{},
+  //structure for ros services
+  'services':{}
+};
 
 // var io = require('socket.io').listen(80); // initiate socket.io server
 
@@ -108,7 +129,7 @@ app.get('/load', function(req, res){
 
 
 
-var rms = new RMS.ROSMasterSynchronizer();
+// var rms = new RMS.ROSMasterSynchronizer();
 
 // If desired, load a file
 if (argv.config) {
@@ -119,7 +140,7 @@ if (argv.config) {
     if (err) return console.log(err);
     var content = JSON.parse(data);
     // console.log(content);
-    rms.load_configuration(content);
+    // rms.load_configuration(content);
   });
 }
 
