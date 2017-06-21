@@ -22,8 +22,11 @@ var socket = io.connect('http://localhost:3000');
    if (data.computers && data.topics && data.services){
      console.log('correct data format');
    }
-   if (data.type=='green' || data.type=='red'){
+   else if (data.type=='green' || data.type=='red'){
      add_console_msg(data.type,data.message);
+   }
+   else if (data.type=='topic-names'){
+     update_rostopic_dropdowns(data);
    }
    // response to the server-side
    // maybe success or failure message?

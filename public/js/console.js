@@ -40,7 +40,7 @@ function add_console_msg(type, msg) {
       div.style.opacity = "0";
       setTimeout(function() {
         div.style.display = "none";
-      }, 600);
+      }, 300);
     }
   }
 }

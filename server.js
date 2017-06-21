@@ -3,6 +3,7 @@
 var express = require('express');
 var path = require('path');
 var RMS = require('./lib/ros_master_synchronizer');
+require('colors')
 
 // Parse command line arguments
 var argv = require('yargs').argv;
@@ -60,7 +61,7 @@ var client_connection;
 io.on('connection', function(client){
 
   // Connection to the client-end socket
-  console.log('New connection from client - resetting state');
+  console.log('Resetting state'.blue.bold+ ' new connection to client');
   rms.disconnect_all();
   reset_ros_mm_obj();
   rms.reset_rms();
@@ -90,9 +91,6 @@ io.on('connection', function(client){
   client.on('disconnect', function(){});
 });
 server.listen(3000);
-
-console.log('client');
-console.log(client_connection);
 
 // Main ROS Multimaster object that gets passed to the server to show updates from the user
 // and that is compared to the same structured object from the server to show changes

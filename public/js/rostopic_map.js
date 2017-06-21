@@ -73,7 +73,7 @@ function new_rostopic_field() {
           <label style=\"color:red\" id=\"topic_status_" + rostopic_num + "\">STATUS</label>\
         </div>\
         <div>");
-  update_rostopic_dropdowns();
+  update_rostopic_dropdowns(last_data);
 
   $("#sub_topic_" + rostopic_num).autocomplete({source: list_of_topics});
   $("#pub_topic_" + rostopic_num).autocomplete({source: list_of_topics});
@@ -81,12 +81,19 @@ function new_rostopic_field() {
 
 }
 
-// document.getElementById("refresh_rostopic_fields").addEventListener("click", function(event) {
-//   event.preventDefault();
-//   update_rostopic_dropdowns();
-// });
+var last_data = {}
 
-function update_rostopic_dropdowns() {
+
+function update_rostopic_dropdowns(data) {
+  last_data = data;
+
+  console.log('update_rostopic_dropdowns');
+  console.log(data);
+  console.log(rostopic_list);
+
+  list_of_topics = data.topics_list;
+  list_of_msg_types = data.msg_types;
+
   for (var i = 0; i < rostopic_list.length; i++) {
     var sub_comp_div = document.getElementById('topic_subscribe_computers_' + (i + 1));
     var pub_comp_div = document.getElementById('topic_publish_computers_' + (i + 1));
@@ -96,11 +103,11 @@ function update_rostopic_dropdowns() {
     sub_comp_div.innerHTML = "";
     pub_comp_div.innerHTML = "";
     var computer_name;
-    for (computer_ip in computer_dict) {
-      console.log(computer_ip);
-      computer_name = computer_dict[computer_ip].name;
-      console.log(computer_dict[computer_ip]);
-      console.log(computer_name);
+    console.log('here!');
+    console.log(data.computers);
+    for (computer_name in data.computers) {
+      console.log('computer names:');
+    console.log(computer_name);
       sub_comp_div.innerHTML += "<option>" + computer_name + "</option>";
       pub_comp_div.innerHTML += "<option>" + computer_name + "</option>";
     }
