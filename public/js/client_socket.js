@@ -17,6 +17,7 @@ var socket = io.connect('http://localhost:3000');
 // listen to update event raised by the server
  socket.on('update', function (data) {
    console.log(data);
+   update_computers(data);
    // make sure object still has all the required structures
    if (data.computers && data.topics && data.services){
      console.log('correct data format');

@@ -76,6 +76,24 @@ function check_for_other_empty_computers() {
   }
 }
 
+function update_computers(data){
+  console.log('update_computers:');
+  data.computers
+  var local_computer;
+  for (local_computer in ros_mm_obj.computers){
+    if (local_computer in data.computers){
+      var computer_updated = data.computers[local_computer];
+      if(computer_updated.status=='error'){
+        console.log('found error');
+        console.log(computer_updated);
+        console.log(local_computer);
+        console.log(ros_mm_obj.computers[local_computer]);
+        ros_mm_obj.computers[local_computer].frame.style.border = "5px solid red";
+      }
+    }
+  }
+}
+
 function addToComputerList(name, ip_address, computer_frame) {
   console.log(ros_mm_obj);
 
