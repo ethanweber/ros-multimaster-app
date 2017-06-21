@@ -21,14 +21,26 @@ var socket = io.connect('http://localhost:3000');
    if (data.computers && data.topics && data.services){
      console.log('correct data format');
    }
+   if (data.type=='green' || data.type=='red'){
+     add_console_msg(data.type,data.message);
+   }
    // response to the server-side
    // maybe success or failure message?
    response = 'success'
-   socket.emit('update-response', response); // raise an event on the server
+  //  socket.emit('update-response', response); // raise an event on the server
  });
+
+function update_from_ui(msg){
+  console.log({'data':ros_mm_obj,'msg':msg})
+  socket.emit('update',{'data':ros_mm_obj,'msg':msg}); // raise an event on the server
+}
 
  function test_socket_send(){
    socket.emit('update', ros_mm_obj); // raise an event on the server
+ }
+
+ function test_socket_return(){
+   socket.emit('test', ros_mm_obj); // raise an event on the server
  }
 
  function test_socket_request(){

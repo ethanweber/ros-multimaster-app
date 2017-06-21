@@ -52,8 +52,8 @@ function submit_computer(computer_frame) {
     var ip_id = ip_input_side.children[1].value;
     addToComputerList(name, ip_id, computer_frame);
   }
-  update_rostopic_dropdowns();
-  update_list_of_topics();
+  // update_rostopic_dropdowns();
+  // update_list_of_topics();
 }
 
 function check_for_other_empty_computers() {
@@ -77,16 +77,26 @@ function check_for_other_empty_computers() {
 }
 
 function addToComputerList(name, ip_address, computer_frame) {
+  console.log(ros_mm_obj);
 
-  if (ip_address in computer_dict) {
-    console.log('ip address: ' + ip_address + ' already registered');
-    if (computer_dict[ip_address].name != name) {
-      computer_dict[ip_address].name = name;
+  if (name in ros_mm_obj.computers) {
+    add_console_msg('orange','Computer name  \''+name+'\' already registered');
+    // console.log('ip address: ' + ip_address + ' already registered');
+    if (ros_mm_obj.computers[name].ip == ip_address) {
+      // computer_dict[ip_address].name = name;
       console.log('updated name of computer at ' + ip_address + ' to be ' + name);
     }
   } else {
+    ros_mm_obj.computers[name] = {
+      'name':name,
+      'ip':ip_address,
+      'status':'unknown',
+      'frame':computer_frame
+    }
     console.log('adding computer ' + name + ' with ip address ' + ip_address);
+    update_from_ui('add-computer');
 
+/*
     var ros = new ROSLIB.Ros();
     ros.computer_frame = computer_frame;
     // If there is an error on the backend, an 'error' emit will be emitted.
@@ -124,6 +134,7 @@ function addToComputerList(name, ip_address, computer_frame) {
       'frame': computer_frame,
       'ros': ros
     }
+    */
 
   }
 }
