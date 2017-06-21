@@ -4,10 +4,10 @@ This program was created in the Model-Based Embedded and Robotics Systems (MERS)
 
 ### Dependencies
 
-You first need to install the following npm packages (using `npm install {packages}`):
-- express
-- debug
-- 
+You first need to install the required npm packages using `npm install` within the main directory.
+
+This also requires that you have node installed first.
+
 
 ### ROS Topic Mapper
 
