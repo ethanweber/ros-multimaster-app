@@ -1,3 +1,15 @@
+
+var socket = io.connect('http://localhost:3000'); // connec to server
+ socket.on('news', function (data) { // listen to news event raised by the server
+   console.log(data);
+   socket.emit('my other event', { my: 'data' }); // raise an event on the server
+ });
+
+ function test_socket(){
+   socket.emit('hello test',{my:'data'});
+ }
+
+
 // --------------------------------------------------------------------------------------
 // COMPUTER FIELDS
 // ----------------------------------------------------------------------
@@ -88,7 +100,7 @@ function addToComputerList(name, ip_address, computer_frame) {
     console.log('adding computer ' + name + ' with ip address ' + ip_address);
 
     var ros = new ROSLIB.Ros();
-    ros.computer_frame = ip_address;
+    ros.computer_frame = computer_frame;
     // If there is an error on the backend, an 'error' emit will be emitted.
     ros.on('error', function(error) {
       // document.getElementById('connecting').style.display = 'none';
