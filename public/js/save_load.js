@@ -1,6 +1,21 @@
 // --------------------------------------------------------------------------------
 // SAVE FILE
 // ---------------------------------------------------------
+
+
+document.getElementById("config-menu").addEventListener("click", function(event) {
+  event.preventDefault();
+
+    var parameters = {
+      ip: '10.71.14.209',
+    };
+    $.get('/connect_computer', parameters, function(data) {
+      // $('#results').html(data);
+      console.log(data);
+    });
+  });
+
+
 document.getElementById("save-config").addEventListener("click", function(event) {
   event.preventDefault();
   var json_string = generate_json();

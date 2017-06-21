@@ -33,9 +33,9 @@ function update_list_of_topics() {
       // console.log(topics);
       for (var i = 0; i < topics.topics.length; i++) {
         list_of_topics.push(topics.topics[i]);
-      }
-      for (var i = 0; i < topics.types.length; i++) {
+        if(topics.types[i]){
         list_of_msg_types.push(topics.types[i]);
+}
       }
     });
   }

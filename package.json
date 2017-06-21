@@ -4,7 +4,8 @@
   "description": "This program is to pass rostopic messages between computers on the same network.",
   "main": "server.js",
   "dependencies": {
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "roslib": "^0.18.0"
   },
   "devDependencies": {},
   "scripts": {
