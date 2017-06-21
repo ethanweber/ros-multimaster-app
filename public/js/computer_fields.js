@@ -90,6 +90,9 @@ function update_computers(data){
         console.log(ros_mm_obj.computers[local_computer]);
         ros_mm_obj.computers[local_computer].frame.style.border = "5px solid red";
       }
+      else if(computer_updated.status=='connected'){
+        ros_mm_obj.computers[local_computer].frame.style.border = "5px solid green";
+      }
     }
   }
 }

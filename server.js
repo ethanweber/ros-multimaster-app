@@ -58,6 +58,13 @@ var server = require('http').createServer();
 var io = require('socket.io')(server);
 var client_connection;
 io.on('connection', function(client){
+
+  // Connection to the client-end socket
+  console.log('New connection from client - resetting state');
+  rms.disconnect_all();
+  reset_ros_mm_obj();
+  rms.reset_rms();
+
   client_connection = client;
   client.on('update', function(data){
     console.log('got data from client');
@@ -100,11 +107,19 @@ var ros_mm_obj = {
   'services':{}
 };
 
+function reset_ros_mm_obj(){
+  var ros_mm_obj = {
+    'computers':{},
+    'topics':{},
+    'services':{}
+  };
+}
+
 
 var rms = new RMS.ROSMasterSynchronizer(io);
 
-rms.add_computer('hello','172.25.21.250');
-rms.connect_to_all_computers();
+// rms.add_computer('hello','172.25.21.250');
+// rms.connect_to_all_computers();
 // rms.update_computer_status('hello','wow');
 // rms.update_computer_status('hello','error');
 
