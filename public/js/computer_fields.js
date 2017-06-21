@@ -1,9 +1,13 @@
 
-var socket = io.connect('http://localhost'); // connec to server
+var socket = io.connect('http://localhost:3000'); // connec to server
  socket.on('news', function (data) { // listen to news event raised by the server
    console.log(data);
    socket.emit('my other event', { my: 'data' }); // raise an event on the server
  });
+
+ function test_socket(){
+   socket.emit('hello test',{my:'data'});
+ }
 
 
 // --------------------------------------------------------------------------------------

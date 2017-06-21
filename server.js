@@ -6,7 +6,16 @@ var roslib = require('roslib');
 
 app.use(express.static('public'));
 
-var io = require('socket.io').listen(80); // initiate socket.io server
+
+var server = require('http').createServer();
+var io = require('socket.io')(server);
+io.on('connection', function(client){
+  client.on('event', function(data){});
+  client.on('disconnect', function(){});
+});
+server.listen(3000);
+
+// var io = require('socket.io').listen(80); // initiate socket.io server
 
 io.sockets.on('connection', function (socket) {
   socket.emit('news', { hello: 'world' }); // Send data to client
