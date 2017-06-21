@@ -14,7 +14,7 @@ This web app is also used to act as a router for ROS Services. It is possible to
 ### Initial Setup
 1. Install node.js and navigate to this directory. Run **node server.js** to use the application.
 
-2. Start ROS Websockets on each computer. Run **roslaunch rodbridge_server rosbridge_websocket.launch** for each ROS Master used on the network.
+2. Start ROS Websockets on each computer. Run **roslaunch rosbridge_server rosbridge_websocket.launch** for each ROS Master used on the network.
 
 3. Navigate to the appropriate URL at **http://localhost:8080/** for configuration. Google Chrome was used when testing this application, but it should work in any browser. The web app should only run on one computer.
 
@@ -33,7 +33,7 @@ This web app is also used to act as a router for ROS Services. It is possible to
 This is not yet functional, but it nearly complete. I'm solving a nested Javascript callback issue.
 
 ### Saving and Uploading
-1. To save a working configuration, click **"Save File"** and enter a **.txt** filename. Files are saved in the **config_files** folder in the directory.
+1. To save a working configuration, click **"Save File"** and enter a **.txt** filename. Files are saved in the **config_files** folder in the directory. Note that the file must be saved after clicking the "Start Routing" buttons.
 2. To upload a previously saved file, click **"Choose File"** and then **"Upload File"** after choosing a file.
 
 # Examples Usage
