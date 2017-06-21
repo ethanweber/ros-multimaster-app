@@ -1,0 +1,18 @@
+{
+    "computer_list": [{
+        "name": "bicycle",
+        "ip": "bicycle.csail.mit.edu"
+    }, {
+        "name": "mers-helm",
+        "ip": "mers-helm.csail.mit.edu"
+    }],
+    "rostopic_list": [{
+        "from": "bicycle",
+        "sub": "/joint_states",
+        "to": "mers-helm",
+        "pub": "/potato",
+        "msg_type": "sensor_msgs/JointState",
+        "loop": false
+    }],
+    "rosservice_list": []
+}

@@ -1,1 +1,1 @@
-{ "computer_list" : [{"name": "testcomp","ip": "1234.4.3.2"}],"rostopic_list" : [{"from": "testcomp","sub": "asdf","to": "testcomp","pub": "etruy","msg_type": "gh","checked": "true"}]}
+{ "computer_list" : [{"name": "testcomp","ip": "1234.4.3.2"}],"rostopic_list" : [{"from": "testcomp","sub": "asdf","to": "testcomp","pub": "etruy","msg_type": "gh","loop": "true"}]}

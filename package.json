@@ -4,10 +4,12 @@
   "description": "This program is to pass rostopic messages between computers on the same network.",
   "main": "server.js",
   "dependencies": {
-    "express": "^4.15.2",
+    "colors": "^1.1.2",
+    "express": "^4.15.3",
     "http": "0.0.0",
     "roslib": "^0.18.0",
-    "socket.io": "^2.0.3"
+    "socket.io": "^2.0.3",
+    "yargs": "^8.0.2"
   },
   "devDependencies": {},
   "scripts": {
