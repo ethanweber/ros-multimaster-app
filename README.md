@@ -2,6 +2,13 @@
 
 This program was created in the Model-Based Embedded and Robotics Systems (MERS) Group at MIT in CSAIL. When multiple robots are used in coordination, it is important to have ROS Topic and ROS Service information shared between the machines. This program bridges the gap between multiple ROS Masters on the same network.
 
+### Dependencies
+
+You first need to install the following npm packages (using `npm install {packages}`):
+- express
+- debug
+- 
+
 ### ROS Topic Mapper
 
 By using this simple web app, one can route one rostopic from one computer to another computer to many. It is also possible to close a loop so that the topic acts as a shared topic between the computers.
