@@ -54,8 +54,8 @@ This is not yet functional, but it nearly complete. I'm solving a nested Javascr
 ![Alt text](images/robot_topic_test.png?raw=true "Topic Routing with Two Robots")
 #### *ROS Service screenshots coming soon*
 
-# Developer Notes
-1. In an old version of rosbridge_suite, there is a 10ms delay when sending messages. It's important to use the newest version. I ran into this problem when testing with a XWAM robot with old software in the MERS lab.
+## Developer Notes
+Check out the [Github wiki](https://github.com/ethanweber/ros-multimaster-app/wiki) for more information!
 
 # Referenced URLs
 1. https://github.com/RobotWebTools/rosbridge_suite/issues/203
