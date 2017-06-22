@@ -83,14 +83,8 @@ function new_rostopic_field() {
 
 var last_data = {}
 
-
 function update_rostopic_dropdowns(data) {
   last_data = data;
-
-  console.log('update_rostopic_dropdowns');
-  console.log(data);
-  console.log(rostopic_list);
-
   list_of_topics = data.topics_list;
   list_of_msg_types = data.msg_types;
 
@@ -103,15 +97,10 @@ function update_rostopic_dropdowns(data) {
     sub_comp_div.innerHTML = "";
     pub_comp_div.innerHTML = "";
     var computer_name;
-    console.log('here!');
-    console.log(data.computers);
     for (computer_name in data.computers) {
-      console.log('computer names:');
-    console.log(computer_name);
       sub_comp_div.innerHTML += "<option>" + computer_name + "</option>";
       pub_comp_div.innerHTML += "<option>" + computer_name + "</option>";
     }
-
     // Preserve previously selected computer values
     sub_comp_div.value = current_sub_comp;
     pub_comp_div.value = current_pub_comp;

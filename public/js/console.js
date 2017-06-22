@@ -15,6 +15,10 @@ for (i = 0; i < close.length; i++) {
   }
 }
 
+function clear_console(){
+  $('#console-div').empty();
+}
+
 function add_console_msg(type, msg) {
   var msg_class = 'alert',
     msg_title = ' ';

@@ -14,6 +14,15 @@ var ros_mm_obj = {
 
 // connect socket to server
 var socket = io.connect('http://localhost:3000');
+socket.on('connect', function(){
+  clear_console();
+  add_console_msg('green','Connected to the MultiMaster Server!');
+});
+socket.on('disconnect', function(){
+  clear_console();
+  add_console_msg('red','Disconnected from the MultiMaster Server!');
+});
+
 // listen to update event raised by the server
  socket.on('update', function (data) {
    console.log(data);

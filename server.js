@@ -68,25 +68,18 @@ io.on('connection', function(client){
 
   client_connection = client;
   client.on('update', function(data){
-    console.log('got data from client');
+    console.log('Data from client:'.magenta.bold);
     console.log(data);
-    console.log(data.msg);
-
     if(data.msg == 'add-computer'){
-      console.log('adding computer!');
       rms.find_and_add_new_computers(data.data);
     }
   });
   client.on('request', function(data){
     console.log('got request from client');
-    console.log(data);
     client.emit('update',ros_mm_obj);
   });
   client.on('test', function(data){
-    // console.log('got test from client');
-    // console.log(data);
     rms.push_update_to_client()
-    // push_update_to_client('dummy_data','hello');
   });
   client.on('disconnect', function(){});
 });

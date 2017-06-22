@@ -2,15 +2,13 @@
 // COMPUTER FIELDS
 // ----------------------------------------------------------------------
 
+// Index of computer blocks added to the UI
 var computer_num = 0;
-var computer_list = [];
-var computer_dict = {};
 
-document.getElementById("new_computer_field").addEventListener("click", function(event) {
-  event.preventDefault();
-  new_computer_field();
-});
-
+/**
+ * Adds a new computer block frame to the UI after pressing the 'Add Computer' button
+ * Also sets up the onclick listener that attempts to link with the given inputs
+ */
 function new_computer_field() {
   computer_num += 1;
 
@@ -36,14 +34,23 @@ function new_computer_field() {
   return [computer_num, computer_section];
 }
 
+// Add the onclick listener to the 'Add Computer' button
+document.getElementById("new_computer_field").addEventListener("click", function(event) {
+  event.preventDefault();
+  new_computer_field();
+});
+
+/**
+ * Attempts to use the computer block inputs to connect/link to another ROS websocket.
+ * This function is called by the click event for the link button in each respective computer block.
+ * Will remove the frame if no computer name given, and then call check_for_other_empty_computers()
+ * @param {Div} computer_frame
+ */
 function submit_computer(computer_frame) {
-
-  console.log(computer_frame);
-
   var computer_input_side = computer_frame.children[0];
   var name = computer_input_side.children[1].value;
   if (name == "" || name == null) {
-    console.log('no computer name given');
+    add_console_msg('orange', 'No computer name provided');
     computer_frame.remove();
     computer_num -= 1;
     check_for_other_empty_computers();
@@ -52,10 +59,48 @@ function submit_computer(computer_frame) {
     var ip_id = ip_input_side.children[1].value;
     addToComputerList(name, ip_id, computer_frame);
   }
-  // update_rostopic_dropdowns();
-  // update_list_of_topics();
 }
 
+/**
+ * Adds a computer to the client state and then pushes the change to the server in order
+ * to attempt a connection with the ros websocket at the given 'ip_address'.
+ * Called by submit_computer() if this is a new name and ip address.
+ * @param {String} name
+ * @param {String} ip_address
+ * @param {Div} computer_frame
+
+ */
+function addToComputerList(name, ip_address, computer_frame) {
+  console.log(ros_mm_obj);
+  // Do we already have a computer with this name registered?
+  if (name in ros_mm_obj.computers) {
+    // Maybe it lost connection and they are trying to reconnect?
+    if (ros_mm_obj.computers[name].status == 'error') {
+      update_from_ui('add-computer');
+    } else {
+      add_console_msg('orange', 'Computer name  \'' + name + '\' already registered');
+      // console.log('ip address: ' + ip_address + ' already registered');
+      // if (ros_mm_obj.computers[name].ip == ip_address) {
+      // console.log('updated name of computer at ' + ip_address + ' to be ' + name);
+      // }
+    }
+  } else {
+    ros_mm_obj.computers[name] = {
+      'name': name,
+      'ip': ip_address,
+      'status': 'unknown',
+      'frame': computer_frame
+    }
+    console.log('adding computer ' + name + ' with ip address ' + ip_address);
+    update_from_ui('add-computer');
+  }
+}
+
+/**
+ * Iterates through the computer block frames in the UI to find the emmpty ones and removes them.
+ * This function is called after one computer block submitted without a name, this way we ensure that new
+ * computer blocks added are in the right number order.
+ */
 function check_for_other_empty_computers() {
   var computers = Array.prototype.slice.call($('#computer_fields').children());
 
@@ -69,117 +114,41 @@ function check_for_other_empty_computers() {
     computer_input_side = computers[i].children[0];
     name = computer_input_side.children[1].value;
     if (name == "" || name == null) {
-      console.log('no computer name given');
+      // add_console_msg('orange', 'No computer name provided');
       computers[i].remove();
       computer_num -= 1;
     }
   }
 }
 
-function update_computers(data){
-  console.log('update_computers:');
+/**
+ * Updates the computer block frames in the app UI based on the state data recieved from the server
+ * @param {Object} data
+ */
+function update_computers(data) {
+  // console.log('update_computers:');
   data.computers
   var local_computer;
-  for (local_computer in ros_mm_obj.computers){
-    if (local_computer in data.computers){
+  for (local_computer in ros_mm_obj.computers) {
+    if (local_computer in data.computers) {
       var computer_updated = data.computers[local_computer];
-      if(computer_updated.status=='error'){
-        console.log('found error');
-        console.log(computer_updated);
-        console.log(local_computer);
-        console.log(ros_mm_obj.computers[local_computer]);
-        ros_mm_obj.computers[local_computer].frame.style.border = "5px solid red";
-      }
-      else if(computer_updated.status=='connected'){
-        ros_mm_obj.computers[local_computer].frame.style.border = "5px solid green";
+      var computer_local = ros_mm_obj.computers[local_computer]
+      if (computer_updated.status == 'error') {
+        computer_local.status = 'error';
+        computer_local.frame.style.border = "5px solid red";
+      } else if (computer_updated.status == 'connected') {
+        computer_local.status = 'connected';
+        computer_local.frame.style.border = "5px solid green";
       }
     }
   }
 }
 
-function addToComputerList(name, ip_address, computer_frame) {
-  console.log(ros_mm_obj);
-
-  if (name in ros_mm_obj.computers) {
-    add_console_msg('orange','Computer name  \''+name+'\' already registered');
-    // console.log('ip address: ' + ip_address + ' already registered');
-    if (ros_mm_obj.computers[name].ip == ip_address) {
-      // computer_dict[ip_address].name = name;
-      console.log('updated name of computer at ' + ip_address + ' to be ' + name);
-    }
-  } else {
-    ros_mm_obj.computers[name] = {
-      'name':name,
-      'ip':ip_address,
-      'status':'unknown',
-      'frame':computer_frame
-    }
-    console.log('adding computer ' + name + ' with ip address ' + ip_address);
-    update_from_ui('add-computer');
-
-/*
-    var ros = new ROSLIB.Ros();
-    ros.computer_frame = computer_frame;
-    // If there is an error on the backend, an 'error' emit will be emitted.
-    ros.on('error', function(error) {
-      // document.getElementById('connecting').style.display = 'none';
-      // document.getElementById('connected').style.display = 'none';
-      // document.getElementById('closed').style.display = 'none';
-      // document.getElementById('error').style.display = 'inline';
-      computer_frame.style.border = "5px solid red";
-      console.log("Error with roslib instance: ")
-      console.log(error);
-    });
-    // Find out exactly when we made a connection.
-    ros.on('connection', function() {
-      console.log('Connection made!');
-      computer_frame.style.border = "5px solid green";
-
-      // document.getElementById('connecting').style.display = 'none';
-      // document.getElementById('error').style.display = 'none';
-      // document.getElementById('closed').style.display = 'none';
-      // document.getElementById('connected').style.display = 'inline';
-    });
-    ros.on('close', function() {
-      console.log('Connection closed.');
-      // document.getElementById('connecting').style.display = 'none';
-      // document.getElementById('connected').style.display = 'none';
-      // document.getElementById('closed').style.display = 'inline';
-    });
-
-    // Create a connection to the rosbridge WebSocket server.
-    ros.connect('ws://' + ip_address + ':9090');
-
-    computer_dict[ip_address] = {
-      'name': name,
-      'frame': computer_frame,
-      'ros': ros
-    }
-    */
-
-  }
-}
-
-/*
-function computer() {
-  var obj = {};
-  obj.name = "";
-  obj.ip = "";
-  obj.ros;
-  obj.initialize = function(name, ip_address) {
-    obj.name = name;
-    obj.ip = ip_address;
-    obj.ros = new ROSLIB.Ros({
-      url: 'ws://' + ip_address + ':9090'
-    });
-  }
-  return obj;
-}
-*/
-
+/**
+ * Clears the client state of computers, removes blocks from UI, and resets block index to 0
+ */
 function clear_computer_list() {
-  computer_list = [];
-  computer_dict = {};
   computer_num = 0;
+  ros_mm_obj.computers = {}
   document.getElementById("computer_fields").innerHTML = "";
 }
