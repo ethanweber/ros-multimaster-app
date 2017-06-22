@@ -252,16 +252,34 @@ function rostopic_route() {
 
 function update_rostopic_routes() {
   // console.log("here we go :D");
+
+  var sub_comp,
+    sub_topic,
+    pub_comp,
+    pub_topic,
+    msg_type,
+    checked;
+
   for (var i = 0; i < rostopic_list.length; i++) {
-    rostopic_list[i].unsubscribe_all();
-    var sub_comp = document.getElementById('topic_subscribe_computers_' + (i + 1)).value;
-    var sub_topic = document.getElementById('sub_topic_' + (i + 1)).value;
-    var pub_comp = document.getElementById('topic_publish_computers_' + (i + 1)).value;
-    var pub_topic = document.getElementById('pub_topic_' + (i + 1)).value;
-    var msg_type = document.getElementById('msg_type_' + (i + 1)).value;
-    var checked = (document.getElementById('checkbox_' + (i + 1)).checked).toString();
-    rostopic_list[i].initialize(i + 1, sub_comp, sub_topic, pub_comp, pub_topic, msg_type, checked);
+    // rostopic_list[i].unsubscribe_all();
+    sub_comp = document.getElementById('topic_subscribe_computers_' + (i + 1)).value;
+    sub_topic = document.getElementById('sub_topic_' + (i + 1)).value;
+    pub_comp = document.getElementById('topic_publish_computers_' + (i + 1)).value;
+    pub_topic = document.getElementById('pub_topic_' + (i + 1)).value;
+    msg_type = document.getElementById('msg_type_' + (i + 1)).value;
+    checked = (document.getElementById('checkbox_' + (i + 1)).checked).toString();
+    // rostopic_list[i].initialize(i + 1, sub_comp, sub_topic, pub_comp, pub_topic, msg_type, checked);
+    ros_mm_obj.topic_routes[i] = {
+      'sub_comp': sub_comp,
+      'sub_topic':sub_topic,
+      'pub_comp': pub_comp,
+      'pub_topic':pub_topic,
+      'msg_type':msg_type,
+      'checked':checked
+    }
   }
+  update_from_ui('new-topics');
+
 }
 document.getElementById("start_topic_routing").addEventListener("click", function(event) {
   event.preventDefault();

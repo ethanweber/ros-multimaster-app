@@ -43,12 +43,13 @@ $('#upload-config').click(function() {
 });
 
 $("#upload-input").change(function() {
-  console.log($("upload-input"));
   event.preventDefault();
 
   clear_computer_list();
   clear_rostopic_list();
   clear_rosservice_list();
+
+  reset_server('loading new configuration');
 
   var f = document.getElementById("upload-input");
   filename = f.files[0]['name'];
@@ -69,13 +70,14 @@ $("#upload-input").change(function() {
     loadServices(master_list.rosservice_list);
 
   })
+
 });
 
 function loadComputers(computers) {
   var computer,
     num,
     name,
-    ip,
+    ip_address,
     comp_id,
     ip_id;
 
@@ -85,13 +87,13 @@ function loadComputers(computers) {
     num = data[0];
     computer_frame = data[1];
     name = computer['name'];
-    ip = computer['ip'];
+    ip_address = computer['ip'];
     comp_id = 'computer_' + num;
     document.getElementById(comp_id).value = name;
     ip_id = 'ip_' + num;
-    document.getElementById(ip_id).value = ip;
+    document.getElementById(ip_id).value = ip_address;
     // computer_list[i].initialize(name, ip);
-    addToComputerList(name, ip_id, computer_frame);
+    addToComputerList(name, ip_address, computer_frame);
   }
 }
 

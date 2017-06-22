@@ -105,9 +105,7 @@ function check_for_other_empty_computers() {
   var computers = Array.prototype.slice.call($('#computer_fields').children());
 
   var computer_input_side = " ";
-  var ip_input_side = " ";
   var name = " ";
-  var ip_id = " ";
 
   for (i in computers) {
     var computer_frame = computers[i]

@@ -7,7 +7,7 @@ var ros_mm_obj = {
   // values = 'computer_name'...
   'computers':{},
   //structure for ros topics
-  'topics':{},
+  'topic_routes':{},
   //structure for ros services
   'services':{}
 };
@@ -46,6 +46,10 @@ socket.on('disconnect', function(){
 function update_from_ui(msg){
   console.log({'data':ros_mm_obj,'msg':msg})
   socket.emit('update',{'data':ros_mm_obj,'msg':msg}); // raise an event on the server
+}
+
+function reset_server(reason){
+  socket.emit('reset',reason);
 }
 
  function test_socket_send(){
