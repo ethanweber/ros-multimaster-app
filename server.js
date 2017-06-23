@@ -79,8 +79,9 @@ io.on('connection', function(client) {
     }
   });
   client.on('request', function(data) {
-    console.log('got request from client');
-    client.emit('update', ros_mm_obj);
+    if(data=='topic-names'){
+      rms.update_topics();
+    }
   });
   client.on('test', function(data) {
     rms.push_update_to_client()

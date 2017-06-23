@@ -26,25 +26,25 @@ document.getElementById("new_rostopic_field").addEventListener("click", function
 var list_of_topics = [];
 var list_of_msg_types = [];
 
-function update_list_of_topics() {
-  for (computer in computer_dict) {
-    // console.log(computer_dict[computer]);
-    computer_dict[computer].ros.getTopics(function(topics) {
-      // console.log(topics);
-      for (var i = 0; i < topics.topics.length; i++) {
-        list_of_topics.push(topics.topics[i]);
-        if (topics.types[i]) {
-          list_of_msg_types.push(topics.types[i]);
-        }
-      }
-    });
-  }
-}
+// function update_list_of_topics() {
+//   for (computer in computer_dict) {
+//     // console.log(computer_dict[computer]);
+//     computer_dict[computer].ros.getTopics(function(topics) {
+//       // console.log(topics);
+//       for (var i = 0; i < topics.topics.length; i++) {
+//         list_of_topics.push(topics.topics[i]);
+//         if (topics.types[i]) {
+//           list_of_msg_types.push(topics.types[i]);
+//         }
+//       }
+//     });
+//   }
+// }
 
 function new_rostopic_field() {
   rostopic_num += 1;
-  rostopic_list.push(new rostopic_route());
-  console.log(rostopic_list.length);
+  // rostopic_list.push(new rostopic_route());
+  // console.log(rostopic_list.length);
   $('#rostopic_fields').append("<div class=\"subsection\" id=\"topic_subsection_" + rosservice_num + "\">\
         <br>\
         <div class=\"form-group\">\
@@ -73,7 +73,9 @@ function new_rostopic_field() {
           <label style=\"color:red\" id=\"topic_status_" + rostopic_num + "\">STATUS</label>\
         </div>\
         <div>");
-  update_rostopic_dropdowns(last_data);
+
+  // request_new_computer_data();
+  request_new_topics_data();
 
   $("#sub_topic_" + rostopic_num).autocomplete({source: list_of_topics});
   $("#pub_topic_" + rostopic_num).autocomplete({source: list_of_topics});
@@ -88,9 +90,10 @@ function update_rostopic_dropdowns(data) {
   list_of_topics = data.topics_list;
   list_of_msg_types = data.msg_types;
 
-  for (var i = 0; i < rostopic_list.length; i++) {
-    var sub_comp_div = document.getElementById('topic_subscribe_computers_' + (i + 1));
-    var pub_comp_div = document.getElementById('topic_publish_computers_' + (i + 1));
+  for (var i = 0; i < rostopic_num; i++) {
+    var topic_id = (i+1);
+    var sub_comp_div = document.getElementById('topic_subscribe_computers_' + topic_id);
+    var pub_comp_div = document.getElementById('topic_publish_computers_' + topic_id);
     var current_sub_comp = sub_comp_div.value;
     var current_pub_comp = pub_comp_div.value;
 
@@ -104,6 +107,10 @@ function update_rostopic_dropdowns(data) {
     // Preserve previously selected computer values
     sub_comp_div.value = current_sub_comp;
     pub_comp_div.value = current_pub_comp;
+
+    $("#sub_topic_" + topic_id).autocomplete({source: list_of_topics});
+    $("#pub_topic_" + topic_id).autocomplete({source: list_of_topics});
+    $("#msg_type_" + topic_id).autocomplete({source: list_of_msg_types});
   }
 }
 
@@ -260,27 +267,52 @@ function update_rostopic_routes() {
     msg_type,
     checked;
 
-  for (var i = 0; i < rostopic_list.length; i++) {
+  // for (var i = 0; i < rostopic_num; i++) {
+    for (var i = 0; i < rostopic_num; i++) {
+      var topic_id = (i+1);
     // rostopic_list[i].unsubscribe_all();
-    sub_comp = document.getElementById('topic_subscribe_computers_' + (i + 1)).value;
-    sub_topic = document.getElementById('sub_topic_' + (i + 1)).value;
-    pub_comp = document.getElementById('topic_publish_computers_' + (i + 1)).value;
-    pub_topic = document.getElementById('pub_topic_' + (i + 1)).value;
-    msg_type = document.getElementById('msg_type_' + (i + 1)).value;
-    checked = (document.getElementById('checkbox_' + (i + 1)).checked).toString();
+    sub_comp = document.getElementById('topic_subscribe_computers_' + topic_id).value;
+    sub_topic = document.getElementById('sub_topic_' + topic_id).value;
+    pub_comp = document.getElementById('topic_publish_computers_' + topic_id).value;
+    pub_topic = document.getElementById('pub_topic_' + topic_id).value;
+    msg_type = document.getElementById('msg_type_' + topic_id).value;
+    checked = (document.getElementById('checkbox_' + topic_id).checked).toString();
     // rostopic_list[i].initialize(i + 1, sub_comp, sub_topic, pub_comp, pub_topic, msg_type, checked);
-    ros_mm_obj.topic_routes[i] = {
-      'sub_comp': sub_comp,
-      'sub_topic':sub_topic,
-      'pub_comp': pub_comp,
-      'pub_topic':pub_topic,
-      'msg_type':msg_type,
-      'checked':checked
+    if (all_filled([
+      sub_comp,
+      sub_topic,
+      pub_comp,
+      pub_topic,
+      msg_type,
+      checked
+    ])) {
+
+      ros_mm_obj.topic_routes[i] = {
+        'sub_comp': sub_comp,
+        'sub_topic': sub_topic,
+        'pub_comp': pub_comp,
+        'pub_topic': pub_topic,
+        'msg_type': msg_type,
+        'checked': checked
+      }
+    } else {
+      console.log('removed topic route of id: '+i);
+      delete ros_mm_obj.topic_routes[i];
     }
   }
   update_from_ui('new-topics');
 
 }
+
+function all_filled(list_of_vars) {
+  for (var i = 0; i < list_of_vars.length; i++) {
+    if (list_of_vars[i] == null || list_of_vars[i] == '') {
+      return false;
+    }
+  }
+  return true;
+}
+
 document.getElementById("start_topic_routing").addEventListener("click", function(event) {
   event.preventDefault();
   update_rostopic_routes();

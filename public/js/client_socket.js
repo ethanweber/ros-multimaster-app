@@ -52,6 +52,10 @@ function reset_server(reason){
   socket.emit('reset',reason);
 }
 
+function request_new_topics_data(){
+  socket.emit('request', 'topic-names'); // raise an event on the server
+}
+
  function test_socket_send(){
    socket.emit('update', ros_mm_obj); // raise an event on the server
  }

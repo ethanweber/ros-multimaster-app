@@ -2,7 +2,7 @@ var Ros = require('../core/Ros');
 var SocketIO = require('./SocketIO');
 var net = require('net');
 var socketAdapter = require('../core/SocketAdapter.js');
-var util = require('util');
+// var util = require('util');
 
 /**
  * Same as core Ros except supports TCP connections
@@ -13,8 +13,8 @@ var util = require('util');
 function RosTCP(options) {
   options = options || {};
   if (!options.encoding) {
-    console.error('ROSLib uses utf8 encoding by default.' +
-      'It would be more efficent to use ascii (if possible)');
+    // console.error('ROSLib uses utf8 encoding by default.' +
+      // 'It would be more efficent to use ascii (if possible)');
   }
   this.encoding = options.encoding || 'utf8';
   Ros.call(this, options);
@@ -30,7 +30,7 @@ function RosTCP(options) {
   }
 }
 
-util.inherits(RosTCP, Ros);
+// util.inherits(RosTCP, Ros);
 
 /**
  * Connects to a live socket
