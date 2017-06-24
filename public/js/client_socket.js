@@ -37,7 +37,7 @@ socket.on('disconnect', function(){
    else if (data.type=='topic-names'){
      update_rostopic_dropdowns(data);
    }
-   // response to the server-side
+   // response to the server-noteside
    // maybe success or failure message?
    response = 'success'
   //  socket.emit('update-response', response); // raise an event on the server
