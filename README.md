@@ -6,7 +6,7 @@ This program was created in the Model-Based Embedded and Robotics Systems (MERS)
 
 You first need to install the required npm packages using `npm install` within the main directory.
 
-This also requires that you have node installed first (tested with v6+). Install node with `sudo apt install npm`.
+This also requires that you have node installed first (tested with v6+).
 
 ### ROS Topic Mapper
 
