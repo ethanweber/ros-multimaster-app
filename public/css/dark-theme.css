@@ -215,6 +215,12 @@ img.resize {
   text-align: center;
 }
 
+.rostopic_mapper h4 {
+  background-color: #FF7F50;
+  border-radius: 15px 15px 0 0;
+  margin-bottom: 10px;
+}
+
 .rostopic_mapper form {
   display: inline-table;
 }
@@ -229,6 +235,12 @@ img.resize {
   background-color: #A3FF48;
   /*border-style: solid;*/
   text-align: center;
+}
+
+.rosservice_mapper h4 {
+  background-color: #A3FF48;
+  border-radius: 15px 15px 0 0;
+  margin-bottom: 10px;
 }
 
 .network_block {
@@ -255,6 +267,18 @@ img.resize {
   margin-top: 5px;
   margin-bottom: 5px;
   /*float: right;*/
+}
+
+.computer_block h4 {
+  background-color: #7DF2F2;
+  border-radius: 15px 15px 0 0;
+  margin-bottom: 10px;
+}
+
+.console_block h4 {
+  background-color: #ffdf35;
+  border-radius: 15px 15px 0 0;
+  margin-bottom: 10px;
 }
 
 .section-block {
