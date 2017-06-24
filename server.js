@@ -79,8 +79,11 @@ io.on('connection', function(client) {
     }
   });
   client.on('request', function(data) {
+    console.log('got a request: '+data);
     if(data=='topic-names'){
       rms.update_topics();
+    }else{
+      client.emit('update',rms.topic_names);
     }
   });
   client.on('test', function(data) {

@@ -173,12 +173,19 @@ body {
   margin: 2px;
 }
 
+.topic-form {
+  width: 25%;
+  min-width: 120px;
+  padding: 0px;
+  margin: 5px;
+}
+
 hr.thick_line {
   display: none;
 }
 
 .subsection {
-  background-color: #DCDCDC;
+  background-color: #989898;
 }
 
 h2 {
@@ -256,6 +263,7 @@ img.resize {
   border-radius: 15px;
   padding-bottom: 10px;
   border-style: none;
+  background-color: #d2d2d2;
 }
 
 #config_file {

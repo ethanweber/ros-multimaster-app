@@ -6,7 +6,8 @@
 
 .alert {
   /*padding: 20px;*/
-  background-color: #f51100;
+  /*background-color: #f51100;*/
+  background-color: #ff5353;
   color: white;
   opacity: 1;
   transition: opacity 0.3s;
@@ -176,6 +177,7 @@ img.resize {
   background-clip: content-box;
   margin: 0 15px 5px;
   padding: 0px;
+  border-radius: 10px;
 }
 
 .submit-computer-button {

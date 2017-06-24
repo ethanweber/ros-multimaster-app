@@ -2,7 +2,41 @@
 // ROSTOPIC MAPPING LISTS
 // ------------------------------------------------------------------
 
-var rostopic_list = [];
+// var rostopic_list = [
+var std_msgs = [
+  'std_msgs/Bool',
+  'std_msgs/Byte',
+  'std_msgs/ByteMultiArray',
+  'std_msgs/Char',
+  'std_msgs/ColorRGBA',
+  'std_msgs/Duration',
+  'std_msgs/Empty',
+  'std_msgs/Float32',
+  'std_msgs/Float32MultiArray',
+  'std_msgs/Float64',
+  'std_msgs/Float64MultiArray',
+  'std_msgs/Header',
+  'std_msgs/Int16',
+  'std_msgs/Int16MultiArray',
+  'std_msgs/Int32',
+  'std_msgs/Int32MultiArray',
+  'std_msgs/Int64',
+  'std_msgs/Int64MultiArray',
+  'std_msgs/Int8',
+  'std_msgs/Int8MultiArray',
+  'std_msgs/MultiArrayDimension',
+  'std_msgs/MultiArrayLayout',
+  'std_msgs/String',
+  'std_msgs/Time',
+  'std_msgs/UInt16',
+  'std_msgs/UInt16MultiArray',
+  'std_msgs/UInt32',
+  'std_msgs/UInt32MultiArray',
+  'std_msgs/UInt64',
+  'std_msgs/UInt64MultiArray',
+  'std_msgs/UInt8',
+  'std_msgs/UInt8MultiArray'
+];
 var rostopic_blocks = {};
 
 var n = 0;
@@ -47,31 +81,33 @@ function new_rostopic_field() {
   // console.log(rostopic_list.length);
   $('#rostopic_fields').append("<div class=\"subsection\" id=\"topic_subsection_" + new_topic_route_id + "\">\
         <br>\
-        <div class=\"form-group\">\
-          <label for=\"sel1\">Computer</label>\
+        <div class=\"form-group topic-form\">\
+          <label for=\"sel1\">Source</label>\
           <select class=\"form-control\" id=\"topic_subscribe_computers_" + new_topic_route_id + "\"></select>\
         </div>\
-        <div class=\"form-group\">\
+        <div class=\"form-group topic-form\">\
           <label for=\"pwd\">Subscribe Topic</label>\
           <input type=\"text\" class=\"form-control\" id=\"sub_topic_" + new_topic_route_id + "\" placeholder=\"Enter topic\">\
         </div>\
-        <div class=\"form-group\">\
+        <div class=\"form-group topic-form\">\
           <label for=\"sel1\">Destination</label>\
           <select class=\"form-control\" id=\"topic_publish_computers_" + new_topic_route_id + "\"></select>\
         </div>\
-        <div class=\"form-group\">\
+        <div class=\"form-group topic-form\">\
           <label for=\"pwd\">Publish Topic</label>\
           <input type=\"text\" class=\"form-control\" id=\"pub_topic_" + new_topic_route_id + "\" placeholder=\"Enter topic\">\
         </div>\
-        <div class=\"form-group\">\
+        <div class=\"form-group topic-form\">\
           <label for=\"pwd\">Message Type</label>\
           <input type=\"text\" class=\"form-control\" id=\"msg_type_" + new_topic_route_id + "\" placeholder=\"Enter type\">\
         </div>\
-        <div class=\"form-group\">\
-          <input type=\"checkbox\" id=\"checkbox_" + new_topic_route_id + "\" value=\"\">\
-          <img class=\"resize\" src=\"/img/loop.jpg\"></img>\
-          <label style=\"color:red\" id=\"topic_status_" + new_topic_route_id + "\">STATUS</label>\
-        </div>\
+        <div class=\"form-group topic-form\">\
+           <label for=\"checkbox_"+new_topic_route_id + "\">Loop</label>\
+           <input type=\"checkbox\" id=\"checkbox_" + new_topic_route_id + "\" value=\"\">\ "+
+          // <img class=\"resize\" src=\"/img/loop.jpg\"></img>\
+          // <label style=\"color:red\" id=\"topic_status_" + new_topic_route_id + "\">STATUS</label>\
+          
+        "</div>\
         <div>");
 
   // request from the server to update autocomplete and selectmenu sources
@@ -83,6 +119,9 @@ function new_rostopic_field() {
   $("#sub_topic_" + new_topic_route_id).autocomplete({source: list_of_topics});
   $("#pub_topic_" + new_topic_route_id).autocomplete({source: list_of_topics});
   $("#msg_type_" + new_topic_route_id).autocomplete({source: list_of_msg_types});
+  // $( function() {
+    $( "#checkbox_"+new_topic_route_id ).checkboxradio();
+  // } );
 
 }
 
@@ -91,11 +130,52 @@ var last_data = {}
 function update_rostopic_dropdowns(data) {
   last_data = data;
   list_of_topics = data.topics_list;
-  list_of_msg_types = data.msg_types;
+  list_of_msg_types = std_msgs.concat(data.msg_types);
 
   var rostopic_id;
 
   for (rostopic_id in rostopic_blocks) {
+    var sub_comp_div = document.getElementById('topic_subscribe_computers_' + rostopic_id);
+    var pub_comp_div = document.getElementById('topic_publish_computers_' + rostopic_id);
+    var current_sub_comp = sub_comp_div.value;
+    var current_pub_comp = pub_comp_div.value;
+
+    sub_comp_div.innerHTML = "";
+    pub_comp_div.innerHTML = "";
+    var computer_name;
+    for (computer_name in data.computers) {
+      sub_comp_div.innerHTML += "<option>" + computer_name + "</option>";
+      pub_comp_div.innerHTML += "<option>" + computer_name + "</option>";
+    }
+    // Preserve previously selected computer values
+    sub_comp_div.value = current_sub_comp;
+    pub_comp_div.value = current_pub_comp;
+
+    $("#sub_topic_" + rostopic_id).autocomplete({source: list_of_topics});
+    $("#pub_topic_" + rostopic_id).autocomplete({source: list_of_topics});
+    $("#msg_type_" + rostopic_id).autocomplete({source: list_of_msg_types});
+  }
+}
+
+function update_rostopic_status(data) {
+  last_data = data;
+  list_of_topic_routes = data.topic_routers;
+
+  var rostopic_id;
+
+  for (rostopic_id in rostopic_blocks) {
+    if (list_of_topic_routes[rostopic_id]) {
+      if (list_of_topic_routes[rostopic_id].status == 'connected') {
+        document.getElementById('topic_subsection_' + rostopic_id).style.border = "5px solid green";
+        document.getElementById('topic_subsection_' + rostopic_id).style.backgroundColor = "#4CAF50";
+      } else if (list_of_topic_routes[rostopic_id].status == 'error') {
+        document.getElementById('topic_subsection_' + rostopic_id).style.border = "5px solid red";
+      } else {
+        document.getElementById('topic_subsection_' + rostopic_id).style.border = "5px solid blue";
+      }
+    } else {
+      document.getElementById('topic_subsection_' + rostopic_id).style.border = "5px solid yellow";
+    }
     var sub_comp_div = document.getElementById('topic_subscribe_computers_' + rostopic_id);
     var pub_comp_div = document.getElementById('topic_publish_computers_' + rostopic_id);
     var current_sub_comp = sub_comp_div.value;
@@ -325,7 +405,7 @@ document.getElementById("start_topic_routing").addEventListener("click", functio
 });
 
 function clear_rostopic_list() {
-  rostopic_list = [];
+  // rostopic_list = [];
   rostopic_blocks = {};
   document.getElementById("rostopic_fields").innerHTML = "";
 

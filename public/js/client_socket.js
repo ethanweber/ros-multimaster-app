@@ -37,6 +37,10 @@ socket.on('disconnect', function(){
    else if (data.type=='topic-names'){
      update_rostopic_dropdowns(data);
    }
+   else if (data.type=='route-status'){
+     console.log('route-status update!');
+     update_rostopic_status(data);
+   }
    // response to the server-noteside
    // maybe success or failure message?
    response = 'success'

@@ -1,13 +1,18 @@
 
-### June 23, 2017 ~10pm [mdeyo]
+### June 23, 2017 ~11pm [mdeyo]
 
-- added time stamp based UUIDs for the topic blocks to ID the different topic routes robustly 
+- added time stamp based UUIDs for the topic blocks to ID the different topic routes robustly
+- spent a long time debugging new scope issue caused by attempt at fixing repeated rostopic updates
+
+TODOs:
+- check incoming 'update' on client socket data structure before attempting to access in functions
+
 
 ### June 23, 2017 ~5pm [mdeyo]
 
 Possible things to work on this evening:
 
-- update rostopic names currently happens twice in a row, find out why and fix! -> found the issue, called within the wrong loop
+- update rostopic names currently happens twice in a row, find out why and fix! -> found the issue, called within the wrong loop --> never mind, hours of debugging later, it has to be there due to scope
 - want the topic block to turn green when successfully connected on the server ->
 - want the topic block to turn orange when 'route topics' but inputs notFilled
 - want the topic block to turn red when error occurs while routing on server

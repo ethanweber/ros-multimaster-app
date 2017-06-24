@@ -24,6 +24,9 @@ function new_computer_field() {
         <img src=\"img/classic/link.png\" class=\"submit-computer-button\" id=\"computer-submit-" + computer_num + "\"/>\
         </div>");
 
+  var list_of_computers = ['localhost'];
+  $("#ip_" + computer_num).autocomplete({source: list_of_computers});
+
   var computer_section = document.getElementById("computer-section-" + computer_num)
   document.getElementById("computer_" + computer_num).focus();
   document.getElementById("computer-submit-" + computer_num).addEventListener("click", function(event) {
@@ -134,9 +137,11 @@ function update_computers(data) {
       if (computer_updated.status == 'error') {
         computer_local.status = 'error';
         computer_local.frame.style.border = "5px solid red";
+        computer_local.frame.style.backgroundColor = "#ff5353";
       } else if (computer_updated.status == 'connected') {
         computer_local.status = 'connected';
         computer_local.frame.style.border = "5px solid green";
+        computer_local.frame.style.backgroundColor = "#4CAF50";
       }
     }
   }
