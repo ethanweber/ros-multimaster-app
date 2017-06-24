@@ -8,7 +8,6 @@ You first need to install the required npm packages using `npm install` within t
 
 This also requires that you have node installed first (tested with v6+).
 
-
 ### ROS Topic Mapper
 
 By using this simple web app, one can route one rostopic from one computer to another computer to many. It is also possible to close a loop so that the topic acts as a shared topic between the computers.
