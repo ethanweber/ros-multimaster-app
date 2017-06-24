@@ -33,7 +33,7 @@ function add_console_msg(type, msg) {
   else if (type == 'red') {
     msg_class = "alert";
   }
-  $('#console-div').append("<div class=\"" + msg_class + "\">" + " <span class=\"closebtn\">\&times</span>" + "  <strong>" + msg_title + "</strong > " + msg + "  </div>");
+  $('#console-div').append("<div class=\"" + msg_class + "\">" + " <span class=\"closebtn\">\&times</span><div id=\"console-timestamp\">"+getLocalTimestamp()+"</div> <strong>" + msg_title + "</strong > " + msg + "  </div>");
 
   var close = document.getElementsByClassName("closebtn");
   var i;
@@ -47,4 +47,20 @@ function add_console_msg(type, msg) {
       }, 300);
     }
   }
+}
+
+function getLocalTimestamp() {
+  var d = new Date();
+  // var minutes = d.getTimezoneOffset();
+  var timestamp_string= pad(d.getHours(),2)+":"+pad(d.getMinutes(),2)+":"+pad(d.getSeconds(),2);
+  // console.log(d);
+  // d = new Date(d.getTime() + minutes*60000);
+  // console.log(d);
+  return timestamp_string;
+}
+
+function pad(n, width, z) {
+  z = z || '0';
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }

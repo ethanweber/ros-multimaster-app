@@ -37,7 +37,7 @@ socket.on('disconnect', function(){
    else if (data.type=='topic-names'){
      update_rostopic_dropdowns(data);
    }
-   // response to the server-side
+   // response to the server-noteside
    // maybe success or failure message?
    response = 'success'
   //  socket.emit('update-response', response); // raise an event on the server
@@ -50,6 +50,10 @@ function update_from_ui(msg){
 
 function reset_server(reason){
   socket.emit('reset',reason);
+}
+
+function request_new_topics_data(){
+  socket.emit('request', 'topic-names'); // raise an event on the server
 }
 
  function test_socket_send(){

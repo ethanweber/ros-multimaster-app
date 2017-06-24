@@ -1,5 +1,9 @@
 /*Console message styling*/
 
+#console-timestamp {
+  float: left;
+}
+
 .alert {
   /*padding: 20px;*/
   background-color: #f51100;
@@ -8,6 +12,7 @@
   transition: opacity 0.3s;
   width: calc(100% - 30px);
   margin: 10px 15px;
+  line-height: 16px;
 }
 
 .alert.success {
@@ -28,7 +33,7 @@
   font-weight: bold;
   float: right;
   font-size: 22px;
-  line-height: 20px;
+  /*line-height: 16px;*/
   cursor: pointer;
   transition: 0.3s;
 }
