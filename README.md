@@ -52,9 +52,9 @@ This is not yet functional, but it nearly complete. I'm solving a nested Javascr
 ![Alt text](images/four_looped_topics.png?raw=true "Looped Topics")
 #### Topic Routing with Two ROS Masters
 ![Alt text](images/robot_topic_test.png?raw=true "Topic Routing with Two Robots")
-## Updated GUI!
-![Alt text](images/new_gui.png?raw=true "Updated GUI")
 #### *ROS Service screenshots coming soon*
+## Most Recent GUI Screenshot
+![Alt text](images/new_gui.png?raw=true "Most Recent GUI")
 
 ## Developer Notes
 Check out the [Github wiki](https://github.com/ethanweber/ros-multimaster-app/wiki) for more information!
