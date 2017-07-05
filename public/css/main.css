@@ -43,6 +43,15 @@
   color: black;
 }
 
+#rostopic_fields .closebtn {
+  position: relative;
+  margin-left: -20px;
+  top: 0px;
+  float: right;
+  top: -70px;
+  right: 10px;
+}
+
 #input_container {
   position: relative;
   padding: 0;
@@ -178,6 +187,7 @@ img.resize {
   margin: 0 15px 5px;
   padding: 0px;
   border-radius: 10px;
+  transition: 0.3s;
 }
 
 .submit-computer-button {

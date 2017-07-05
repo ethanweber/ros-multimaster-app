@@ -80,7 +80,6 @@ function new_rostopic_field() {
   // rostopic_list.push(new rostopic_route());
   // console.log(rostopic_list.length);
   $('#rostopic_fields').append("<div class=\"subsection\" id=\"topic_subsection_" + new_topic_route_id + "\">\
-        <br>\
         <div class=\"form-group topic-form\">\
           <label for=\"sel1\">Source</label>\
           <select class=\"form-control\" id=\"topic_subscribe_computers_" + new_topic_route_id + "\"></select>\
@@ -102,26 +101,31 @@ function new_rostopic_field() {
           <input type=\"text\" class=\"form-control\" id=\"msg_type_" + new_topic_route_id + "\" placeholder=\"Enter type\">\
         </div>\
         <div class=\"form-group topic-form\">\
-           <label for=\"checkbox_"+new_topic_route_id + "\">Loop</label>\
-           <input type=\"checkbox\" id=\"checkbox_" + new_topic_route_id + "\" value=\"\">\ "+
-          // <img class=\"resize\" src=\"/img/loop.jpg\"></img>\
+           <label for=\"checkbox_" + new_topic_route_id + "\">Loop</label>\
+           <input type=\"checkbox\" id=\"checkbox_" + new_topic_route_id + "\" value=\"\">\ " +
+  // <img class=\"resize\" src=\"/img/loop.jpg\"></img>\
           // <label style=\"color:red\" id=\"topic_status_" + new_topic_route_id + "\">STATUS</label>\
-          
-        "</div>\
-        <div>");
+        "</div><span class=\"closebtn\" id=\"close_"+new_topic_route_id+"\">\&times</span> \
+      </div>");
 
   // request from the server to update autocomplete and selectmenu sources
   request_new_topics_data();
 
   // Add the topic route ID to rostopic_blocks obj with blank value
-  rostopic_blocks[new_topic_route_id] = ' '
-
+  rostopic_blocks[new_topic_route_id] = ' ';
   $("#sub_topic_" + new_topic_route_id).autocomplete({source: list_of_topics});
   $("#pub_topic_" + new_topic_route_id).autocomplete({source: list_of_topics});
   $("#msg_type_" + new_topic_route_id).autocomplete({source: list_of_msg_types});
   // $( function() {
-    $( "#checkbox_"+new_topic_route_id ).checkboxradio();
+  $("#checkbox_" + new_topic_route_id).checkboxradio();
   // } );
+  $("#close_" + new_topic_route_id).click(function() {
+    var div = this.parentElement;
+    div.style.opacity = "0";
+    setTimeout(function() {
+      div.style.display = "none";
+    }, 400);
+  });
 
 }
 
